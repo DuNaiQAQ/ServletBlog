@@ -162,25 +162,25 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="http://localhost:8080/MyBlog_war_exploded/loadPostServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="http://localhost:8080/MyBlog_war_exploded/loadDraftServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="http://localhost:8080/MyBlog_war_exploded/loadRubbishServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="http://localhost:8080/MyBlog_war_exploded/loadAllPostServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>

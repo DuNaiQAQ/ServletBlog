@@ -15,9 +15,10 @@
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- 主题样式 -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-    <!-- jsGrid -->
-    <link rel="stylesheet" href="../plugins/jsgrid/jsgrid.min.css">
-    <link rel="stylesheet" href="../plugins/jsgrid/jsgrid-theme.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -104,8 +105,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 个人中心
@@ -127,8 +128,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
@@ -143,7 +144,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
@@ -188,38 +189,83 @@
     </aside>
 
     <!-- Content Wrapper. 包含页面内容 -->
-    <div class="content-wrapper" style="min-height: 3604px;">
+    <div class="content-wrapper">
         <!-- 内容标题（页面标题） -->
-        <section class="content-header">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>资料</h1>
-                    </div>
+                        <h1 class="m-0">起始页</h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">首页</a></li>
-                            <li class="breadcrumb-item active">用户资料</li>
+                            <li class="breadcrumb-item active">起始页</li>
                         </ol>
-                    </div>
-                </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </section>
+        </div>
+        <!-- /.content-header -->
 
-        <!-- 主体内容 -->
-        <section class="content">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">jsGrid</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div id="jsGrid" class="jsgrid" style="position: relative; height: 100%; width: 100%;">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">使用最小功能和悬停样式的数据表格</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div id="articles_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="articles" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid" aria-describedby="articles_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="articles" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="渲染引擎: activate to sort column descending">文章ID
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="浏览器: activate to sort column ascending">文章作者
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="平台: activate to sort column ascending">文章标题
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="引擎版本: activate to sort column ascending">点赞次数
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="CSS 等级: activate to sort column ascending">收藏次数
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="CSS 等级: activate to sort column ascending">操作
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>DuNai</td>
+                                    <td>论唐可可为什么是神</td>
+                                    <td>1000</td>
+                                    <td>100</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" id="lookat">浏览</button>
+                                        <button type="button" class="btn btn-primary" id="delete">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <!-- /.card-body -->
             </div>
-        </section>
+            <!-- /.card-body -->
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -240,45 +286,23 @@
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
-<!-- jsGrid -->
-<script src="../plugins/jsgrid/demos/db.js"></script>
-<script src="../plugins/jsgrid/jsgrid.min.js"></script><script src="../plugins/jsgrid/i18n/jsgrid-zh-cn.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../plugins/jszip/jszip.min.js"></script>
+<script src="../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
-        var clients = [
-        { "Name": "Otto Clay", "Age": 25, "Country": 1, "Address": "Ap #897-1459 Quam Avenue", "Married": false },
-        { "Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true },
-        { "Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false },
-        { "Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true },
-        { "Name": "Ramona Benton", "Age": 32, "Country": 3, "Address": "Ap #614-689 Vehicula Street", "Married": false }
-        ];
-
-        var countries = [
-        { Name: "", Id: 0 },
-        { Name: "United States", Id: 1 },
-        { Name: "Canada", Id: 2 },
-        { Name: "United Kingdom", Id: 3 }
-        ];
-
-        $("#jsGrid").jsGrid({
-        width: "100%",
-        height: "400px",
-
-        inserting: true,
-        editing: true,
-        sorting: true,
-        paging: true,
-
-        data: clients,
-
-        fields: [
-    { name: "Name", type: "text", width: 150, validate: "required" },
-    { name: "Age", type: "number", width: 50 },
-    { name: "Address", type: "text", width: 200 },
-    { name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
-    { name: "Married", type: "checkbox", title: "Is Married", sorting: false },
-    { type: "control" }
-        ]
-    });
+    $(document).ready(function () {
+        $('#articles').DataTable();
+    })
 </script>
 </body>
 </html>

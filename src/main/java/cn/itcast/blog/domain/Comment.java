@@ -10,11 +10,12 @@ public class Comment {
     private DateTime ctime;
     private long parent;
     private String parent_name;
+    private int count_good;
 
     public Comment() {
     }
 
-    public Comment(long id, long post_id, String uname_email, String content, DateTime ctime, long parent, String parent_name) {
+    public Comment(long id, long post_id, String uname_email, String content, DateTime ctime, long parent, String parent_name, int count_good) {
         this.id = id;
         this.post_id = post_id;
         this.uname_email = uname_email;
@@ -22,6 +23,7 @@ public class Comment {
         this.ctime = ctime;
         this.parent = parent;
         this.parent_name = parent_name;
+        this.count_good=count_good;
     }
 
     public long getId() {
@@ -78,5 +80,13 @@ public class Comment {
 
     public void setParent_name(String parent_name) {
         this.parent_name = parent_name;
+    }
+
+    public int getCount_good() {
+        return count_good;
+    }
+
+    public void setCount_good(int count_good) {
+        this.count_good = count_good;
     }
 }

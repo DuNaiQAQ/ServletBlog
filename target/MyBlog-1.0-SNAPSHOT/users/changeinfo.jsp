@@ -148,7 +148,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="loadPostServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
@@ -229,7 +229,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">密码</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="这里会显示原来的密码">
+                                <button type="button" class="btn btn-primary" id="password">点击进入密码重设页面</button>
                             </div>
                             <div class="form-group">
                                 <label for="self_content">密码</label>

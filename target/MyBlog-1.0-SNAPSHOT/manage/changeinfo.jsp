@@ -155,7 +155,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="http://localhost:8080/MyBlog_war_exploded/loadPostServlet" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
@@ -244,7 +244,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="username">用户名</label>
-                                    <input type="email" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}}">
+                                    <input type="email" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
                                 </div>
                                 <div class="form-group">
                                     <label>密码</label>
@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="self_content">个人简介</label><br>
-                                    <input type="password" class="form-control" id="self_content" name="self_content" placeholder="这里会显示原来个人简介">
+                                    <input type="text" class="form-control" id="self_content" name="self_content" placeholder="这里会显示原来个人简介" value="${sessionScope.user.getSelf_content()}">
                                 </div>
                                 <div class="form-group">
                                         <label> 生日：</label>
@@ -260,7 +260,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" class="form-control" name="birt" id="birth">
+                                        <input type="date" class="form-control" name="birt" id="birth" value="${sessionScope.user.getBirth()}">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -269,18 +269,6 @@
 
                             <div class="card-footer">
                                 <button type="button" class="btn btn-primary" id="save">提交</button>
-                                <script>
-                                    $("#save").onclick(function () {
-                                        $.post("updateInfoServlet",$("#info").serialize(),function (data) {
-                                if(data.flag){
-                                alert("数据更改成功！");
-                                window.location.href="changeinfo.jsp";
-                                }else {
-                                alert(data.errorMsg);
-                                }
-                                })
-                                })
-                                </script>
                             </div>
                         </form>
                     </div>
@@ -299,7 +287,18 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-
+<script>
+    $("#save").onclick(function () {
+        $.post("updateInfoServlet",$("#info").serialize(),function (data) {
+            if(data.flag){
+                alert("数据更改成功！");
+                window.location.href="changeinfo.jsp";
+            }else {
+                alert(data.errorMsg);
+            }
+        })
+    })
+</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

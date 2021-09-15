@@ -22,7 +22,7 @@ public class loadPostServlet extends HttpServlet {
         ArticleService articleDao=new ArticleServiceImpl();
         User user=(User)request.getSession().getAttribute("user");
         posta=articleDao.getPostArticles(user.getEmail());
-        request.setAttribute("posta",posta);
+        request.getSession().setAttribute("posta",posta);
         if(user.getRole()==1) {
             response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/articles.jsp");
         }else{

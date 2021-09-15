@@ -17,7 +17,7 @@
     <!-- 主题样式 -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- editormd -->
-    <link rel="stylesheet" href="../lib/editormd/css/editormd.css" />
+    <link rel="stylesheet" href="editormd/css/editormd.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -218,7 +218,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="height: 750px">
-                            <form style="height: 550px;" method action="post">
+                            <form style="height: 550px;" method action="post" id="article">
                                 <label for="title">标题</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
                                 <br>
@@ -252,7 +252,9 @@
 <!-- 载入脚本 -->
 <script>
     $("#postout").click(function () {
-
+        $.post("uploadarticleServlet",$("#articles").serialize(),function (data) {
+            alert("文章上传成功");
+        })
     })
 
     $("#save").click(function () {
@@ -266,7 +268,7 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- editormd -->
-<script src="../lib/editormd/editormd.min.js"></script>
+<script src="editormd/editormd.min.js"></script>
 <script type="text/javascript">
     $(function() {
         var editor = editormd("editor", {

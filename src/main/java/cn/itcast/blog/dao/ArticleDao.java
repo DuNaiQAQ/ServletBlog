@@ -9,4 +9,6 @@ public interface ArticleDao {
     public List<Article> findAllArticles();
     public List<Article> findDraftArticles(String email);
     public List<Article> findRubbishCan(String email);
+    public void saveArticle(Article article);
+    public void changeStatus(Article article);
 }

@@ -291,7 +291,7 @@
                                         <button type="button" class="btn btn-primary delete">删除</button>
                                     </td>
                                 </tr>
-                                <c:forEach var="a" items="${posta}">
+                                <c:forEach var="a" items="${sessionScope.posta}">
                                     <tr>
                                         <td>${a.getId()}</td>
                                         <td>${a.getEmail()}</td>

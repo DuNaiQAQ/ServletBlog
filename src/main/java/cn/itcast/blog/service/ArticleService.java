@@ -9,4 +9,5 @@ public interface ArticleService {
     public List<Article> getPostArticles(String email);
     public List<Article> getDraftArticles(String email);
     public List<Article> getRubbishCan(String email);
+    public void saveArticle(Article article);
 }

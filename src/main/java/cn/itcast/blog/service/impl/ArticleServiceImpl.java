@@ -29,4 +29,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getRubbishCan(String email) {
         return articleDao.findRubbishCan(email);
     }
+
+    @Override
+    public void saveArticle(Article article) {
+        articleDao.saveArticle(article);
+    }
 }

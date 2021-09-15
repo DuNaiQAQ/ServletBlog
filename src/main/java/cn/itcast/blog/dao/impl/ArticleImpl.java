@@ -34,4 +34,17 @@ public class ArticleImpl implements ArticleDao {
         String sql="select * from article where author_email = ? and status = 3";
         return template.query(sql,new ArticleRowMapper(),email);
     }
+
+    @Override
+    public void saveArticle(Article article) {
+        String sql="insert into article(author_email,title,text,status,creat_time,last_change_time,count_good,count_shou)";
+        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getCreat_time(),article.getLast_change_time(),
+        article.getCount_good(),article.getCount_shou());
+    }
+
+    @Override
+    public void changeStatus(Article article) {
+        String sql="update article set status = ? where id = ?";
+        template.update(sql,article.getStatus());
+    }
 }

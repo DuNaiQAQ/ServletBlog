@@ -151,7 +151,7 @@
                         </a>
                         <ul class="nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="writearticle.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>写文章</p>
                                 </a>

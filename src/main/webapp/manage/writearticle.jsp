@@ -108,21 +108,33 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                个人中心
+                                用户中心
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./alluers.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>管理全站用户</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./adduers.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>添加用户</p>
                                 </a>
                             </li>
                         </ul>
@@ -135,32 +147,38 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                            <ul class="nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>写文章</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>已发布的文章</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>草稿箱</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>垃圾箱</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        <ul class="nav-treeview">
+                            <li class="nav-item">
+                                <a href="writearticle.jsp" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>写文章</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="articles.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>已发布的文章</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./drafts.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>草稿箱</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./rubbishs.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>垃圾箱</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./allarticles.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>全站所有文章管理</p>
+                                </a>
+                            </li>
+                        </ul>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -173,9 +191,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>查看评论</p>
+                                    <p>查看我的评论</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./allcoments.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>查看所有评论</p>
                                 </a>
                             </li>
                         </ul>
@@ -218,15 +242,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="height: 750px">
-                            <form style="height: 550px;" method action="post" id="article">
+                            <form style="height: 550px;" method action="post" id="article_filed">
                                 <label for="title">标题</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
                                 <br>
                                 <div id="editor">
-                            <textarea style="display:none;" name="text">
-                            </textarea>
+                            <textarea style="display:none;" name="text"></textarea>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="postout">发布</button><button type="button" class="btn btn-primary" id="save">保存</button>
+                                <button type="button" class="btn btn-primary" id="postar">发布</button>
+                                <button type="button" class="btn btn-primary" id="save">保存</button>
                             </form>
                         </div>
                         <div class="card-footer">
@@ -250,17 +274,6 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-<script>
-    $("#postout").click(function () {
-        $.post("uploadarticleServlet",$("#articles").serialize(),function (data) {
-            alert("文章上传成功");
-        })
-    })
-
-    $("#save").click(function () {
-
-    })
-</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -274,9 +287,15 @@
         var editor = editormd("editor", {
             width  : "100%",
             height : "100%",
-            path   : "../../lib/editormd/lib/"
+            path   : "editormd/lib/"
         });
     });
+</script>
+<script>
+    $("#postar").click(function () {
+        $.post("/MyBlog_war_exploded/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
+        })
+    })
 </script>
 <!-- 用于演示 AdminLTE  -->
 <script src="dist/js/demo.js"></script>

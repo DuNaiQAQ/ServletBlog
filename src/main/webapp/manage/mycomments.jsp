@@ -106,8 +106,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -116,25 +116,25 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
-                            <li class="nav-item active">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./adduers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>添加用户</p>
                                 </a>
@@ -151,31 +151,31 @@
                         </a>
                         <ul class="nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="writearticle.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>写文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="http://localhost:8080/MyBlog_war_exploded/loadPostServlet" class="nav-link">
+                                <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./drafts.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./rubbishs.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allarticles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>
@@ -183,8 +183,8 @@
                         </ul>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-mail-bulk"></i>
                             <p>
                                 评论管理
@@ -193,13 +193,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看我的评论</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allcoments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看所有评论</p>
                                 </a>
@@ -220,12 +220,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">起始页</h1>
+                        <h1 class="m-0">评论管理</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">文章管理</a></li>
-                            <li class="breadcrumb-item active">已发布的文章</li>
+                            <li class="breadcrumb-item"><a href="#">评论管理</a></li>
+                            <li class="breadcrumb-item active">我的评论</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -235,7 +235,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">所有已发布的文章</h3>
+                <h3 class="card-title">我发出的评论</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -327,7 +327,7 @@
 <!-- 载入脚本 -->
 <script>
     $(".lookat").click(function () {
-        window.location.href="../articlepage.html?articleid=1";
+        window.location.href="../articlepage.jsp?articleid=1";
     })
 
     $(".delete").click(function(){

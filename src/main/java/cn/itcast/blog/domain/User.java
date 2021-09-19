@@ -11,6 +11,7 @@ public class User {
     private String code;
     private int role;
     private String self_content;
+    private String head;
 
     public int getRole() {
         return role;

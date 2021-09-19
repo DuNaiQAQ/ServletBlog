@@ -41,19 +41,19 @@
                 <li class="nav-item">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.html">首页</a>
+                    <a class="nav-link" href="articlepage.jsp">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.html">个人简介</a>
+                    <a class="nav-link" href="articlepage.jsp">个人简介</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.html">学习天地</a>
+                    <a class="nav-link" href="articlepage.jsp">学习天地</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.html">好玩的事</a>
+                    <a class="nav-link" href="articlepage.jsp">好玩的事</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.html">懒得分类</a>
+                    <a class="nav-link" href="articlepage.jsp">懒得分类</a>
                 </li>
                 <li class="nav-item" id="blank"></li>
                 <li class="btn-group btn-group-sm" id="logandreg">

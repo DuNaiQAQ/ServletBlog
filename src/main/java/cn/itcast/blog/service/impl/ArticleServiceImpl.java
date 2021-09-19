@@ -34,4 +34,14 @@ public class ArticleServiceImpl implements ArticleService {
     public void saveArticle(Article article) {
         articleDao.saveArticle(article);
     }
+
+    @Override
+    public Article findarticleById(int id) {
+        return articleDao.findArticleByID(id);
+    }
+
+    @Override
+    public void changeStatus(Article article) {
+        articleDao.changeStatus(article);
+    }
 }

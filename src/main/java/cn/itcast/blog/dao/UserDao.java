@@ -2,6 +2,8 @@ package cn.itcast.blog.dao;
 
 import cn.itcast.blog.domain.User;
 
+import java.util.List;
+
 public interface UserDao {
     /**
      * 根据用户名查询对象
@@ -26,4 +28,6 @@ public interface UserDao {
     public User findByUsernameAndPassword(String username,String password);
 
     public void updateInfo(User user);
+
+    public List<User> getAllUsers();
 }

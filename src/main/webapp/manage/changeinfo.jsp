@@ -114,25 +114,25 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
-                            <li class="nav-item active">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item">
+                                <a href="changeinfo.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./adduers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>添加用户</p>
                                 </a>
@@ -149,31 +149,31 @@
                         </a>
                         <ul class="nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="writearticle.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>写文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="http://localhost:8080/MyBlog_war_exploded/loadPostServlet" class="nav-link">
+                                <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./drafts.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./rubbishs.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allarticles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>
@@ -191,13 +191,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看我的评论</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allcoments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看所有评论</p>
                                 </a>

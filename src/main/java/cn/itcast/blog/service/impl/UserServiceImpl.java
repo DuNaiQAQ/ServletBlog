@@ -7,7 +7,9 @@ import cn.itcast.blog.service.UserService;
 import cn.itcast.blog.util.MailUtils;
 import cn.itcast.blog.util.UuidUtil;
 
-public class UserServiceImpl implements UserService {
+import java.util.List;
+
+public class  UserServiceImpl implements UserService {
     private UserDao userDao=new UserDaoImpl();
     /**
     * 注册用户
@@ -55,5 +57,10 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<User> getAllusers() {
+        return  userDao.getAllUsers();
     }
 }

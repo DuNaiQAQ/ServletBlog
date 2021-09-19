@@ -1,9 +1,21 @@
+<%@ page import="cn.itcast.blog.domain.Article" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cn.itcast.blog.service.ArticleService" %>
+<%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
 -->
+<%
+    List<Article> posta=null;
+    ArticleService articleDao=new ArticleServiceImpl();
+    User user=(User)request.getSession().getAttribute("user");
+    posta=articleDao.getAllPostArticles();
+    request.setAttribute("allposta",posta);
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -106,8 +118,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -116,33 +128,33 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
-                            <li class="nav-item active">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./adduers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>添加用户</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
@@ -157,25 +169,25 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="http://localhost:8080/MyBlog_war_exploded/loadPostServlet" class="nav-link">
+                                <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./drafts.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./rubbishs.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allarticles.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>
@@ -193,13 +205,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看我的评论</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./allcoments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>查看所有评论</p>
                                 </a>
@@ -220,7 +232,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">起始页</h1>
+                        <h1 class="m-0">文章管理</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -296,6 +308,8 @@
                                         <td>${a.getId()}</td>
                                         <td>${a.getEmail()}</td>
                                         <td>${a.getTitle()}</td>
+                                        <td>${a.getCreat_time()}</td>
+                                        <td>${a.getLast_change_time()}</td>
                                         <td>${a.getCount_good()}</td>
                                         <td>${a.getCount_shou()}</td>
                                         <td>
@@ -325,15 +339,6 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-<script>
-    $(".lookat").click(function () {
-        window.location.href="../articlepage.html?articleid=1";
-    })
-
-    $(".delete").click(function(){
-        //这里会参入文章ID参数进行对于文章状态的修改
-    })
-</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -356,6 +361,15 @@
 <script>
     $(document).ready(function () {
         $('#articles').DataTable();
+    })
+</script>
+<script>
+    $(".lookat").click(function () {
+        window.location.href="../articlepage.jsp?articleid=1";
+    })
+
+    $(".delete").click(function(){
+        //这里会参入文章ID参数进行对于文章状态的修改
     })
 </script>
 </body>

@@ -6,6 +6,8 @@ import cn.itcast.blog.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 
 public class UserDaoImpl implements UserDao {
 
@@ -63,5 +65,13 @@ public class UserDaoImpl implements UserDao {
     public void updateInfo(User user){
         String sql = "update user set Username = ?,Birthday = ?,self_content = ? where Email = ?";
         template.update(sql,user.getUsername(),user.getBirth(),user.getSelf_content(),user.getEmail());
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List users=null;
+        String sql="select * from user";
+        users=template.query(sql,new BeanPropertyRowMapper<User>(User.class));
+        return users;
     }
 }

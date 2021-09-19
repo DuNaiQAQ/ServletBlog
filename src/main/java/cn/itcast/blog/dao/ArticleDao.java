@@ -11,4 +11,5 @@ public interface ArticleDao {
     public List<Article> findRubbishCan(String email);
     public void saveArticle(Article article);
     public void changeStatus(Article article);
+    public Article findArticleByID(int id);
 }

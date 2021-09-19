@@ -3,7 +3,9 @@ package cn.itcast.blog.dao.impl;
 import cn.itcast.blog.dao.ArticleDao;
 import cn.itcast.blog.dao.impl.rowmappers.ArticleRowMapper;
 import cn.itcast.blog.domain.Article;
+import cn.itcast.blog.domain.User;
 import cn.itcast.blog.util.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -37,14 +39,20 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public void saveArticle(Article article) {
-        String sql="insert into article(author_email,title,text,status,creat_time,last_change_time,count_good,count_shou)";
-        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getCreat_time(),article.getLast_change_time(),
+        String sql="insert into article(author_email,title,text,status,create_time,last_change_time,count_good,count_shou) values(?,?,?,?,?,?,?,?)";
+        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
         article.getCount_good(),article.getCount_shou());
     }
 
     @Override
     public void changeStatus(Article article) {
         String sql="update article set status = ? where id = ?";
-        template.update(sql,article.getStatus());
+        template.update(sql,article.getStatus(),article.getId());
+    }
+
+    @Override
+    public Article findArticleByID(int id) {
+        String sql="select * from article where id = ?";
+        return template.queryForObject(sql,new BeanPropertyRowMapper<Article>(Article.class),id);
     }
 }

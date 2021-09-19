@@ -6,16 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>文章页面</title>
     <!--引入bootstrap的css文件-->
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap-4.6.0-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/mainpagestyle.css">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/mainpagestyle.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/manage/plugins/fontawesome-free/css/all.min.css">
+    <!-- 主题样式 -->
+    <link rel="stylesheet" href="/manage/dist/css/adminlte.min.css">
+    <!-- Bootstrap 4 -->
+    <script src="/manage/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/manage/dist/js/adminlte.min.js"></script>
 </head>
 
 
 <body class="background">
 <!--加载jquery-->
-<script type="text/javascript" src="lib/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../lib/jquery-3.6.0.js"></script>
 <!--加载bootstrap依赖的JS文件-->
-<script type="text/javascript" src="lib/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
 <!--使用几个div来完成对于博客首页的编写-->
 <!--页面顶部-->
 
@@ -58,34 +66,79 @@
 <article>
     <div class="container">
         <div class="row">
-            <div class="col-sm-8" id="articleview">
+            <div class="col-md-8">
+            <div class="card" id="articleview" style="height: 1000px">
                 <h1>文章标题</h1>
                 <p>文章一些信息</p>
                 <div class="border border-top-0"></div>
                 <p>文章基本内容</p>
             </div>
-            <div class="col-sm-4" id="othersinfoview">
-                <h3>个人信息</h3>
-                <div class="fakeimg">这里随便选张图片</div>
-                <p>个人简介</p>
-                <h3>友情链接</h3>
-                <p>这里的链接都是一些实用网站（包括表博客）</p>
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://blog.dunaixdd.cn">个人博客</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">链接</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">链接</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">链接</a>
-                    </li>
-                </ul>
             </div>
-        </div>
+            <div class="col-md-4">
+                <div class="card" id="othersinfoview" style="height: 1000px">
+                    <h3>个人信息</h3>
+                    <div class="fakeimg">这里随便选张图片</div>
+                    <p>个人简介</p>
+                    <h3>友情链接</h3>
+                    <p>这里的链接都是一些实用网站（包括表博客）</p>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://blog.dunaixdd.cn">个人博客</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">链接</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">链接</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">链接</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="comment_area">
+                <div class="card" style="width: 1125px;margin: auto">
+                    <div class="post">
+                        <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="用户头像">
+                            <span class="username">
+                          <a href="#">这里是用户名</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                            <span class="description">这里是评论时间</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <p>
+                            这里是评论
+                        </p>
+
+                        <p>
+                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> 喜欢</a>
+                        </p>
+
+                        <form class="form-horizontal">
+                            <div class="input-group input-group-sm mb-0">
+                                <input class="form-control form-control-sm" placeholder="内容">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-danger">发送</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="post">
+                        有什么想说的？
+                        <form class="form-horizontal">
+                            <div class="input-group input-group-sm mb-0">
+                                <textarea class="form-control form-control-sm" style="height: 100px" placeholder="允许使用markdown表达式"></textarea>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-danger">发送</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </div>
     </div>
 </article>

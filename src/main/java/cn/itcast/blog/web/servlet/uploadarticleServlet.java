@@ -46,6 +46,6 @@ public class uploadarticleServlet extends HttpServlet {
         service.saveArticle(article);
         ObjectMapper mapper=new ObjectMapper();
         response.setContentType("application/json;charset=utf-8");
-        response.sendRedirect("");
+        response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/articles.jsp");
     }
 }

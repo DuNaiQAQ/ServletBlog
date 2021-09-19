@@ -327,7 +327,7 @@
 <!-- 载入脚本 -->
 <script>
     $(".lookat").click(function () {
-        window.location.href="../articlepage.html?articleid=1";
+        window.location.href="../articlepage.jsp?articleid=1";
     })
 
     $(".delete").click(function(){

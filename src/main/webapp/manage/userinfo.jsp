@@ -86,7 +86,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="./dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -121,7 +121,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./userinfo.jsp" class="nav-link active">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -247,7 +247,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="./dist/img/user4-128x128.jpg" alt="User profile picture">
+                                    <img class="profile-user-img img-fluid img-circle" src="${sessionScope.user.getHead()}" alt="User profile picture">
                                 </div>
 
                                 <h3 class="profile-username text-center">${sessionScope.user.getUsername()}</h3>
@@ -306,7 +306,6 @@
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">最近发布的5个博客</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">时间线</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -328,37 +327,6 @@
                                             </p>
                                         </div>
                                         <!-- /.post -->
-                                    </div>
-                                    <!-- /.tab-pane -->
-                                    <div class="tab-pane" id="timeline">
-                                        <!-- The timeline -->
-                                        <div class="timeline timeline-inverse">
-                                            <!-- timeline time label -->
-                                            <div class="time-label">
-                        <span class="bg-success">
-                          2014年1月3日
-                        </span>
-                                            </div>
-                                            <!-- /.timeline-label -->
-                                            <!-- timeline item -->
-                                            <div>
-                                                <i class="fas fa-camera bg-purple"></i>
-
-                                                <div class="timeline-item">
-                                                    <span class="time"><i class="far fa-clock"></i> 2 天前</span>
-
-                                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> 上传了新照片</h3>
-
-                                                    <div class="timeline-body">
-                                                        这里是时间线，按时间顺序显示
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- END timeline item -->
-                                            <div>
-                                                <i class="far fa-clock bg-gray"></i>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.tab-content -->

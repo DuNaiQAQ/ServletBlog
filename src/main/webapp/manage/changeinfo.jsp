@@ -78,7 +78,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -97,7 +97,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- 侧边栏菜单 -->
             <nav class="mt-2">
@@ -120,13 +119,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="changeinfo.jsp" class="nav-link active">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -240,12 +239,20 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="info">
+                        <form id="info" method="post" action="/MyBlog_war_exploded/updateInfoServlet" enctype="multipart/form-data">
                             <div class="card-body">
+                                <input type="hidden" name="id" value="${sessionScope.user.getId()}">
                                 <div class="form-group">
                                     <label for="username">用户名</label>
-                                    <input type="email" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
                                 </div>
+                                 <div class="form-group">
+                                     <label>头像</label>
+                                     <p>上传头像时建议使用1:1的大小</p>
+                                     <label>当前头像</label>
+                                     <img id="head" src="${sessionScope.user.getHead()}" style="height: 100px;width: 100px">
+                                     <input id="input_head" type="file" accept="image/*" class="btn-file" name="head">
+                                 </div>
                                 <div class="form-group">
                                     <label>密码</label>
                                     <button type="button" class="btn btn-primary">点击进入密码重设页面</button>
@@ -260,7 +267,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" class="form-control" name="birt" id="birth" value="${sessionScope.user.getBirth()}">
+                                        <input type="date" class="form-control" name="birth" id="birth" value="${sessionScope.user.getBirth()}">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -268,7 +275,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="button" class="btn btn-primary" id="save">提交</button>
+                                <button class="btn btn-primary" id="save">提交</button>
                             </div>
                         </form>
                     </div>
@@ -287,18 +294,6 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-<script>
-    $("#save").onclick(function () {
-        $.post("updateInfoServlet",$("#info").serialize(),function (data) {
-            if(data.flag){
-                alert("数据更改成功！");
-                window.location.href="changeinfo.jsp";
-            }else {
-                alert(data.errorMsg);
-            }
-        })
-    })
-</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

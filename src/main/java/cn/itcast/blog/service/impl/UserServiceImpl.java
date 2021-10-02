@@ -51,7 +51,7 @@ public class  UserServiceImpl implements UserService {
 
     @Override
     public boolean updateInfo(User user) {
-        User u=userDao.findByCode(user.getCode());
+        User u=userDao.findById(user.getId());
         if(u!=null) {
             userDao.updateInfo(user);
             return true;
@@ -62,5 +62,15 @@ public class  UserServiceImpl implements UserService {
     @Override
     public List<User> getAllusers() {
         return  userDao.getAllUsers();
+    }
+
+    @Override
+    public boolean deleteUser(int userid) {
+        return false;
+    }
+
+    @Override
+    public void addUser(User user) {
+        userDao.save(user);
     }
 }

@@ -63,8 +63,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateInfo(User user){
-        String sql = "update user set Username = ?,Birthday = ?,self_content = ? where Email = ?";
-        template.update(sql,user.getUsername(),user.getBirth(),user.getSelf_content(),user.getEmail());
+        String sql = "update user set Username = ?,Birth = ?,self_content = ?,head = ? where id = ?";
+        template.update(sql,user.getUsername(),user.getBirth(),user.getSelf_content(),user.getHead(),user.getId());
     }
 
     @Override
@@ -74,4 +74,27 @@ public class UserDaoImpl implements UserDao {
         users=template.query(sql,new BeanPropertyRowMapper<User>(User.class));
         return users;
     }
+
+    @Override
+    public void deleteUser(int id) {
+        String sql="select * from user where id = ?";
+        template.update(sql,id);
+    }
+
+    @Override
+    public User findById(int id) {
+        User user=null;
+        String sql="select * from user where id = ?";
+        user=template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),id);
+        return user;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User user=null;
+        String sql="select * from user where Email = ?";
+        user=template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),email);
+        return user;
+    }
+
 }

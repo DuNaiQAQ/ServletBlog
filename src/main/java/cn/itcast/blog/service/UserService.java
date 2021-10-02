@@ -10,4 +10,6 @@ public interface UserService {
     User login(User user);
     boolean updateInfo(User user);
     List<User> getAllusers();
+    boolean deleteUser(int userid);
+    void addUser(User user);
 }

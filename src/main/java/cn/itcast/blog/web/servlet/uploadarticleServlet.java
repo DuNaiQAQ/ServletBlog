@@ -22,12 +22,12 @@ import java.util.Map;
 public class uploadarticleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String,String[]> map = request.getParameterMap();
+        int role=Integer.valueOf(request.getParameter("role"));
         String msg=null;
         Article article=new Article();
         User user=(User)request.getSession().getAttribute("user");
@@ -39,13 +39,10 @@ public class uploadarticleServlet extends HttpServlet {
             e.printStackTrace();
         }
         article.setEmail(user.getEmail());
-        article.setStatus(1);
+        article.setStatus(role);
         article.setCreat_time(new Timestamp(System.currentTimeMillis()));
         article.setLast_change_time(new Timestamp(System.currentTimeMillis()));
         ArticleService service=new ArticleServiceImpl();
         service.saveArticle(article);
-        ObjectMapper mapper=new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/articles.jsp");
     }
 }

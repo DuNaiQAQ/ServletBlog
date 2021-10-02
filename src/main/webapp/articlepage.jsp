@@ -1,6 +1,10 @@
 <%@ page import="cn.itcast.blog.domain.Article" %>
 <%@ page import="cn.itcast.blog.service.ArticleService" %>
 <%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
+<%@ page import="cn.itcast.blog.service.CommetService" %>
+<%@ page import="cn.itcast.blog.service.impl.CommentServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Comment" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -9,6 +13,9 @@
     ArticleService service=new ArticleServiceImpl();
     article=service.findarticleById(id);
     pageContext.setAttribute("article",article);
+    CommetService commetService=new CommentServiceImpl();
+    List<Comment> commentList=commetService.loadArticleComment(id);
+    pageContext.setAttribute("comments",commentList);
 %>
 <html>
 <head>
@@ -48,7 +55,7 @@
                 <li class="nav-item">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">首页</a>
+                    <a class="nav-link" href="articlepage.jsp?pagenum=1">首页</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="articlepage.jsp">个人简介</a>
@@ -120,38 +127,50 @@
             </div>
             <div id="comment_area">
                 <div class="card" style="width: 1125px;margin: auto">
-                    <div class="post">
-                        <div class="user-block">
-                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="用户头像">
-                            <span class="username">
-                          <a href="#">这里是用户名</a><p id="commentid">评论id:</p>
+                    <c:forEach var="com" items="${comments}">
+                        <div class="post">
+                            <div class="user-block">
+                                <img class="img-circle img-bordered-sm" src="${com.getUname_head()}" alt="用户头像">
+                                <span class="username">
+                          <a href="#">${com.getUname_email()}</a>
                           <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                         </span>
-                            <span class="description">这里是评论时间</span>
-                        </div>
-                        <!-- /.user-block -->
-                        <p>
-                            这里是评论
-                        </p>
-
-                        <p>
-                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> 喜欢</a>
-                        </p>
-
-                        <form class="form-horizontal">
-                            <div class="input-group input-group-sm mb-0">
-                                <input class="form-control form-control-sm" placeholder="内容">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-danger sendreply">发送</button>
-                                </div>
+                                <span class="description">${com.getCtime()}</span>
                             </div>
-                        </form>
-                    </div>
+                            <!-- /.user-block -->
+                            <c:if test="${com.getParent_name()!=null}">
+                            <div class="replya">
+                                <p style="color: grey">${com.getParent_name()}</p>
+                                <br>
+                            </div>
+                            </c:if>
+                            <p>
+                                ${com.getContent()}
+                            </p>
+                            <p>
+                                <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> 喜欢</a>
+                            </p>
+
+                            <form class="form-horizontal sendr">
+                                <div class="input-group input-group-sm mb-0">
+                                    <input type="hidden" name="parent" value="${com.getParent()}">
+                                    <input type="hidden" name="post_id" value="${article.getId()}">
+                                    <input type="hidden" name="parent" value="${com.getId()}">
+                                    <input type="hidden" name="parent_name" value="${com.getContent()}">
+                                    <input class="form-control form-control-sm" name="content" placeholder="内容">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger sendreply">发送</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </c:forEach>
                     <div class="post">
                         有什么想说的？
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" id="sendc">
+                            <input type="hidden" name="post_id" value="${article.getId()}">
                             <div class="input-group input-group-sm mb-0">
-                                <textarea class="form-control form-control-sm" style="height: 100px" placeholder="允许使用markdown表达式"></textarea>
+                                <textarea class="form-control form-control-sm" name="content" style="height: 100px" placeholder="说点什么吧呜呜"></textarea>
                             </div>
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-danger" id="sendcommit">发送</button>
@@ -178,9 +197,20 @@
 <script src="lib/editormd/editormd.min.js"></script>
 <script>
     $("#sendcommit").click(function () {
-        <%
+        $.post("/MyBlog_war_exploded/commitServlet",$("#sendc").serialize(),function (data) {
+            if(data.flag){
+                alert("评论发送成功！");
+                window.location.href="http://localhost:8080/MyBlog_war_exploded/articlepage.jsp?articleid=${article.getId()}";
+            }
+        })
+    })
 
-        %>
+    $(".sendreply").click(function () {
+        $.post("/MyBlog_war_exploded/commitServlet",$(".sendr").serialize(),function (data) {
+            if(data.flag){
+                alert("回复发送成功！");
+            }
+        })
     })
     
     $("#login").click(function () {

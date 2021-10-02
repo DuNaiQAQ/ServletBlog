@@ -4,9 +4,13 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/articlepage.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/alluers.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/changeinfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/mycomments.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/pagebackup/articles.html" value="file://$PROJECT_DIR$/src/main/webapp/manage/pagebackup" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/pagebackup/userinfo.html" value="file://$PROJECT_DIR$/src/main/webapp/manage/pagebackup" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/userinfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/writearticle.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/staticpages/articlepage.html" value="file://$PROJECT_DIR$/src/main/webapp/staticpages" />
         <entry key="file://$PROJECT_DIR$/../../YiJunDuN41Li/书籍电子书/day25_综合案例1/day25_综合案例1/资料/08-初始项目/travel/src/main/webapp/manage/changeinfo.jsp" value="file://$PROJECT_DIR$/../../YiJunDuN41Li/书籍电子书/day25_综合案例1/day25_综合案例1/资料/08-初始项目/travel/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/../../YiJunDuN41Li/书籍电子书/day25_综合案例1/day25_综合案例1/资料/08-初始项目/travel/src/main/webapp/manage/pagebackup/articles.html" value="file://$PROJECT_DIR$/../../YiJunDuN41Li/书籍电子书/day25_综合案例1/day25_综合案例1/资料/08-初始项目/travel/src/main/webapp/manage/pagebackup" />

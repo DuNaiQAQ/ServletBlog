@@ -44,4 +44,14 @@ public class ArticleServiceImpl implements ArticleService {
     public void changeStatus(Article article) {
         articleDao.changeStatus(article);
     }
+
+    @Override
+    public boolean deleteArticle(int article) {
+        return false;
+    }
+
+    @Override
+    public List<Article> getAllArticles() {
+        return articleDao.getAllArticles();
+    }
 }

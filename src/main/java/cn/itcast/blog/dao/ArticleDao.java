@@ -12,4 +12,6 @@ public interface ArticleDao {
     public void saveArticle(Article article);
     public void changeStatus(Article article);
     public Article findArticleByID(int id);
+    public void deleteArticle(int id);
+    public List<Article> getAllArticles();
 }

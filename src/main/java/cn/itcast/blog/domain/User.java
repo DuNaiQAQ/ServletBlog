@@ -3,6 +3,7 @@ package cn.itcast.blog.domain;
 import java.sql.Date;
 
 public class User {
+    private int id;
     private String Username;
     private String email;
     private String password;
@@ -29,7 +30,7 @@ public class User {
         this.self_content = self_content;
     }
 
-    public User(String username, String email, String password, Date birth, String status, String code,int role,String self_content) {
+    public User(String username, String email, String password, Date birth, String status, String code,int role,String self_content,int id) {
         this.Username = username;
         this.email = email;
         this.password = password;
@@ -38,6 +39,23 @@ public class User {
         this.code = code;
         this.role=role;
         this.self_content=self_content;
+        this.id=id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
     }
 
     public String getCode() {

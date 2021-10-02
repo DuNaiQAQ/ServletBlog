@@ -93,7 +93,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -118,8 +118,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -140,7 +140,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -153,8 +153,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
@@ -187,7 +187,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./allarticles.jsp" class="nav-link active">
+                                <a href="./allarticles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>
@@ -279,6 +279,9 @@
                                         aria-label="最后修改时间: activate to sort column ascending">最后修改时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="文章状态: activate to sort column ascending">文章状态
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
                                         aria-label="点赞次数: activate to sort column ascending">点赞次数
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
@@ -290,26 +293,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>DuNai</td>
-                                    <td>论()为什么是神</td>
-                                    <td>2021-5-24 10:30:20</td>
-                                    <td>2021-10-10 10:30:22</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary lookat">浏览</button>
-                                        <button type="button" class="btn btn-primary delete">删除</button>
-                                    </td>
-                                </tr>
-                                <c:forEach var="a" items="${posta}">
+                                <c:forEach var="a" items="${allposta}">
                                     <tr>
-                                        <td>${a.getId()}</td>
+                                        <td class="articleid">${a.getId()}</td>
                                         <td>${a.getEmail()}</td>
                                         <td>${a.getTitle()}</td>
                                         <td>${a.getCreat_time()}</td>
                                         <td>${a.getLast_change_time()}</td>
+                                        <c:if test="${a.getStatus()==1}">
+                                            <td>已发布</td>
+                                        </c:if>
+                                        <c:if test="${a.getStatus()==2}">
+                                            <td>草稿</td>
+                                        </c:if>
+                                        <c:if test="${a.getStatus()==3}">
+                                            <td>回收站</td>
+                                        </c:if>
                                         <td>${a.getCount_good()}</td>
                                         <td>${a.getCount_shou()}</td>
                                         <td>
@@ -365,11 +364,13 @@
 </script>
 <script>
     $(".lookat").click(function () {
-        window.location.href="../articlepage.jsp?articleid=1";
+        var id=$(this).parents("tr").find(".articleid").text()
+        window.location.href="../articlepage.jsp?articleid="+id;
     })
 
     $(".delete").click(function(){
-        //这里会参入文章ID参数进行对于文章状态的修改
+        var id=$(this).parents("tr").find(".articleid").text()
+        window.location.href = "/MyBlog_war_exploded/changestatusServlet?articleid=" + id + "&pageid=4&setstatus=3";
     })
 </script>
 </body>

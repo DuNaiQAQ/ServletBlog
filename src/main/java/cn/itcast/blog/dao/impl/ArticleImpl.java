@@ -53,6 +53,21 @@ public class ArticleImpl implements ArticleDao {
     @Override
     public Article findArticleByID(int id) {
         String sql="select * from article where id = ?";
-        return template.queryForObject(sql,new BeanPropertyRowMapper<Article>(Article.class),id);
+        Article article=(Article) template.queryForObject(sql,new ArticleRowMapper(),id);
+        return article;
     }
+
+    @Override
+    public void deleteArticle(int id) {
+        String sql="delete * from article where id = ?";
+        template.update(sql,id);
+    }
+
+    @Override
+    public List<Article> getAllArticles() {
+        String sql="select * from article";
+        return  template.query(sql,new ArticleRowMapper());
+    }
+
+
 }

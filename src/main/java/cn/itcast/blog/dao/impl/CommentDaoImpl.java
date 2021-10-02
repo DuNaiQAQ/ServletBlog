@@ -13,18 +13,20 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void saveComment(Comment comment) {
-        String sql="intsert into comment(post_id,uname_email,content,ctime,parent,parent_name,count_good) values(?,?,?,?,?,?,?,?)";
-        template.update(sql,comment.getPost_id(),comment.getUname_email(),comment.getContent(),comment.getCtime(),
-                comment.getParent(),comment.getParent_name(),comment.getCount_good());
+        String sql="insert into comment(post_id,uname_email,content,parent,parent_name,count_good,ctime,uname_head) values(?,?,?,?,?,?,?,?)";
+        template.update(sql,comment.getPost_id(),comment.getUname_email(),comment.getContent(),
+                comment.getParent(),comment.getParent_name(),comment.getCount_good(),comment.getCtime(),comment.getUname_head());
     }
 
     @Override
     public List<Comment> loadComment(String email) {
         List<Comment> comments=null;
-        String sql="select * from comment where email = ?";
+        String sql="select * from comment where uname_email = ?";
         comments=template.query(sql,new CommentRowMapper(),email);
         return comments;
     }
+
+
 
     @Override
     public List<Comment> loadAllComment() {
@@ -33,4 +35,18 @@ public class CommentDaoImpl implements CommentDao {
         comments=template.query(sql,new CommentRowMapper());
         return comments;
     }
+
+    @Override
+    public List<Comment> loadArticleComment(int id) {
+        List<Comment> comments=null;
+        String sql="select * from comment where post_id = ?";
+        comments=template.query(sql,new CommentRowMapper(),id);
+        return comments;
+    }
+
+    public void deleteComment(int id) {
+        String sql="delete * from comment where id = ?";
+        template.update(sql,id);
+    }
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

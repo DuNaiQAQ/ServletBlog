@@ -30,4 +30,10 @@ public interface UserDao {
     public void updateInfo(User user);
 
     public List<User> getAllUsers();
+
+    public void deleteUser(int id);
+
+    public User findById(int id);
+
+    public User findByEmail(String email);
 }

@@ -15,12 +15,13 @@ public class CommentRowMapper implements RowMapper {
         Comment comment=new Comment();
         comment.setId(resultSet.getInt("id"));
         comment.setPost_id(resultSet.getInt("post_id"));
-        comment.setUname_email(resultSet.getString("unname_email"));
+        comment.setUname_email(resultSet.getString("uname_email"));
         comment.setContent(resultSet.getString("content"));
-        comment.setCtime(new DateTime(resultSet.getTimestamp("ctime")));
+        comment.setCtime(resultSet.getTimestamp("ctime"));
         comment.setParent(resultSet.getInt("parent"));
         comment.setParent_name(resultSet.getString("parent_name"));
         comment.setCount_good(resultSet.getInt("count_good"));
+        comment.setUname_head(resultSet.getString("uname_head"));
         return comment;
     }
 }

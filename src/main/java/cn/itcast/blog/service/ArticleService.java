@@ -12,4 +12,6 @@ public interface ArticleService {
     public void saveArticle(Article article);
     public Article findarticleById(int id);
     public void changeStatus(Article article);
+    public boolean deleteArticle(int article);
+    public List<Article> getAllArticles();
 }

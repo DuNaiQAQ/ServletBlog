@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章页面</title>
+    <!--引入bootstrap的css文件-->
+    <link rel="stylesheet" href="../../../../../../DuNaiBlog/target/DuNaiBlog/lib/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../../../DuNaiBlog/target/DuNaiBlog/css/mainpagestyle.css">
+</head>
+
+
+<body class="background">
+<!--加载jquery-->
+<script src="../../../../../../DuNaiBlog/target/DuNaiBlog/lib/jquery-3.6.0.js"></script>
+<!--加载bootstrap依赖的JS文件-->
+<script src="../../../../../../DuNaiBlog/target/DuNaiBlog/lib/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+<!--使用几个div来完成对于博客首页的编写-->
+<!--页面顶部-->
+
+<header class="head">
+    <!--导航栏以及登录注册按钮-->
+    <div class="toplink">
+        <nav class="navbar navbar-expand-sm bg-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="navbar-brand text-dark" id="Mybrand" herf="#">DuNai的个人博客</a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">个人简介</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">学习天地</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">好玩的事</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">懒得分类</a>
+                </li>
+                <li class="nav-item" id="blank"></li>
+                <li class="btn-group btn-group-sm" id="logandreg">
+                    <button type="button" class="btn btn-primary" id="login">登录</button>
+                    <button type="button" class="btn btn-primary" id="regidit">注册</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</header>
+<!--文章部分-->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8" id="articleview">
+                <h1>文章标题</h1>
+                <p>文章一些信息</p>
+                <div class="border border-top-0"></div>
+                <p>文章基本内容</p>
+            </div>
+            <div class="col-sm-4" id="othersinfoview">
+                <h3>个人信息</h3>
+                <div class="fakeimg">这里随便选张图片</div>
+                <p>个人简介</p>
+                <h3>友情链接</h3>
+                <p>这里的链接都是一些实用网站（包括表博客）</p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://blog.dunaixdd.cn">个人博客</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">链接</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">链接</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">链接</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</article>
+<!--页面底部内容-->
+<div class="jumbotron text-center" style="margin-bottom: 0">
+    <p>页面底部</p>
+</div>
+<script>
+    $("#login").click(function () {
+        window.location.href="loginpage.html"
+    })
+
+    $("#regidit").click(function () {
+        window.location.href="regpage.html"
+    })
+</script>
+</body>
+</html>

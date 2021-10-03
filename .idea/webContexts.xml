@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/articlepage.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/alluers.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/changeinfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manage/mycomments.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manage" />

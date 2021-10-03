@@ -37,7 +37,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 

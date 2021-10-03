@@ -44,7 +44,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -140,7 +140,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link active">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -153,8 +153,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
@@ -187,7 +187,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./allarticles.jsp" class="nav-link">
+                                <a href="./allarticles.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>全站所有文章管理</p>
                                 </a>

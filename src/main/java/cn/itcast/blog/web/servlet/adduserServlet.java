@@ -4,6 +4,7 @@ import cn.itcast.blog.domain.ResultInfo;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.service.UserService;
 import cn.itcast.blog.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.*;
@@ -33,7 +34,13 @@ public class adduserServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        user.setStatus("Y");
+        info.setFlag(true);
         UserService service=new UserServiceImpl();
         service.addUser(user);
+        ObjectMapper mapper=new ObjectMapper();
+        String json=mapper.writeValueAsString(info);
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(json);
     }
 }

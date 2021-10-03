@@ -29,7 +29,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -103,8 +103,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -125,7 +125,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link active">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -247,11 +247,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>密码</label>
-                                    <input type="text" class="form-control" id="password" name="self_content" placeholder="请输入密码">
+                                    <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">个人简介</label><br>
-                                    <input type="text" class="form-control" id="email" name="self_content" placeholder="邮箱地址">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="邮箱地址">
                                 </div>
                                 <div class="form-group">
                                         <label>用户状态</label>
@@ -280,9 +280,16 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
 <script>
-    $("#save").onclick(function () {
-        $.post("adduserServlet",$("#info").serialize(),function (data) {
+    $("#save").click(function () {
+        $.post("/MyBlog_war_exploded/adduserServlet",$("#info").serialize(),function (data) {
             if(data.flag){
                 alert("添加用户成功！");
                 window.location.href="changeinfo.jsp";
@@ -292,11 +299,5 @@
         })
     })
 </script>
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>

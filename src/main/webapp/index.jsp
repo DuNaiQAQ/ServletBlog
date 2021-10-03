@@ -24,10 +24,10 @@
     int pagenum=Integer.valueOf(request.getParameter("pagenum"));
     //从这里开始初始化文章主页面信息，固定每页显示3个文章
     List<Article> pageArticles=new ArrayList<Article>();
-    if((pagesize-3*pagenum)<0){
+    if((articles.size()-3*pagenum)<0){
         flag=0;
     }else {
-        flag=pagesize-pagenum*3+1;
+        flag=articles.size()-pagenum*3+1;
     }
     for(int i=articles.size()-1-(pagenum-1)*3;i>=flag;i--){
         pageArticles.add(articles.get(i));
@@ -93,7 +93,7 @@
                     <a class="nav-link" href="articlepage.jsp">懒得分类</a>
                 </li>
                 <li class="nav-item" id="blank"></li>
-                <li class="btn-group btn-group-sm" id="logandreg" >
+                <li class="btn-group btn-group-sm" id="logandreg"<c:if test="${sessionScope.user!=null}">hidden</c:if>>
                     <button type="button" class="btn btn-primary" id="login">登录</button>
                     <button type="button" class="btn btn-primary" id="regidit">注册</button>
                 </li>
@@ -104,7 +104,7 @@
                     </c:if><c:if test="${sessionScope.user!=null}">
                         ${sessionScope.user.getUsername()}
                     </c:if></button>
-                    <button type="button" class="btn btn-primary" id="logout">退出</button>
+                    <button type="button" class="btn btn-primary" id="logout" <c:if test="${sessionScope.user==null}">hidden</c:if>>退出</button>
                 </li>
             </ul>
         </nav>

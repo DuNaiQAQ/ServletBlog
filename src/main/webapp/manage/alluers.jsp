@@ -50,7 +50,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -301,7 +301,12 @@
                                     <tr>
                                         <td class="userid">${a.getId()}</td>
                                         <td>${a.getUsername()}</td>
-                                        <td><img src="${a.getHead()}" style="height: 60px;width: 60px"></td>
+                                        <c:if test="${a.getHead()==null}">
+                                            <td>该用户暂时还没有上传头像</td>
+                                        </c:if>
+                                        <c:if test="${a.getHead()!=null}">
+                                            <td><img src="${a.getHead()}" style="height: 60px;width: 60px"></td>
+                                        </c:if>
                                         <td class="useremail">${a.getEmail()}</td>
                                         <td>${a.getSelf_content()}</td>
                                         <td>${a.getBirth()}</td>
@@ -359,12 +364,12 @@
 </script>
 <script>
     $(".lookat").click(function () {
-        var id=$(this).parents("tr").find(".auserid").text()
+        var id=$(this).parents("tr").find(".userid").text()
         window.location.href="./manage_changeinfo.jsp?id=;"+id;
     })
 
     $(".delete").click(function(){
-        var id=$(this).parents("tr").find(".articleid").text()
+        var id=$(this).parents("tr").find(".userid").text()
         window.location.href="/MyBlog_war_exploded/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
     })
 </script>

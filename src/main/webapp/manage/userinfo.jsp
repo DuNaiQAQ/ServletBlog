@@ -37,7 +37,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -121,7 +121,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./userinfo.jsp" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link active">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>

@@ -3,7 +3,9 @@ package cn.itcast.blog.dao.impl;
 import cn.itcast.blog.dao.CommentDao;
 import cn.itcast.blog.dao.impl.rowmappers.CommentRowMapper;
 import cn.itcast.blog.domain.Comment;
+import cn.itcast.blog.domain.User;
 import cn.itcast.blog.util.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -41,6 +43,11 @@ public class CommentDaoImpl implements CommentDao {
         List<Comment> comments=null;
         String sql="select * from comment where post_id = ?";
         comments=template.query(sql,new CommentRowMapper(),id);
+        String sql2="select * from user where Email = ?";
+        for(int i=0;i<comments.size();i++){
+            String head=template.queryForObject(sql2,new BeanPropertyRowMapper<User>(User.class),comments.get(i).getUname_email()).getHead();
+            comments.get(i).setUname_head(head);
+        }
         return comments;
     }
 

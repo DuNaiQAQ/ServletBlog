@@ -45,7 +45,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">主页</a>
+                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -119,8 +119,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -141,7 +141,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link active">
+                                <a href="./alluers.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -154,8 +154,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
@@ -170,7 +170,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="articles.jsp" class="nav-link">
+                                <a href="articles.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>

@@ -255,7 +255,7 @@
                                  </div>
                                 <div class="form-group">
                                     <label>密码</label>
-                                    <button type="button" class="btn btn-primary">点击进入密码重设页面</button>
+                                    <button type="button" class="btn btn-primary" id="resetpass">点击进入密码重设页面</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="self_content">个人简介</label><br>
@@ -300,5 +300,10 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script>
+    $("#resetpass").click(function () {
+        window.location.href="http://localhost:8080/MyBlog_war_exploded/changePassword.jsp";
+    })
+</script>
 </body>
 </html>

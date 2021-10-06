@@ -365,7 +365,7 @@
 <script>
     $(".lookat").click(function () {
         var id=$(this).parents("tr").find(".userid").text()
-        window.location.href="./manage_changeinfo.jsp?id=;"+id;
+        window.location.href="./manage_changeinfo.jsp?id="+id;
     })
 
     $(".delete").click(function(){

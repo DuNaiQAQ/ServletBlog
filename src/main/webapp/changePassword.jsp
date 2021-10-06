@@ -1,10 +1,14 @@
- <!DOCTYPE html>
+<%@ page import="java.util.Random" %>
+<%@ page import="cn.itcast.blog.util.MailUtils" %>
+<%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>登录界面</title>
+    <title>找回密码</title>
     <!--引入bootstrap的css文件-->
     <link rel="stylesheet" type="text/css" href="lib/bootstrap-4.6.0-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/loginpagestyle.css">
@@ -21,30 +25,38 @@
     <h2>欢迎回来,先请登录</h2>
     <form action method="post" id="logform">
         <div class="form-group">
-            <label for="userinfo">E-mail:</label>
-            <input type="email" class="form-control" id="userinfo" name="email" placeholder="请输入邮箱">
-        </div>
-        <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
         </div>
         <div class="form-group">
+            <label for="passworda">Password:</label>
+            <input type="password" class="form-control" id="passworda" name="password" placeholder="请重复密码">
+        </div>
+        <div class="form-group">
             <label for="acccode">验证码:</label>
-            <input type="password" class="form-control" id="acccode" name="acccode" placeholder="请输入验证码">
-            <img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
-            <script type="text/javascript">
-                //图片点击事件
-                function changeCheckCode(img) {
-                    img.src="checkCode?"+new Date().getTime();
-                }
-            </script>
+            <input type="text" class="form-control" id="acccode" name="acccode" placeholder="请输入验证码">
+            <button type="button" id="sendacccode" class="btn btn-primary">发送验证码</button>
         </div>
         <div class="blank"></div>
-        <button type="button" class="btn btn-primary" id="logbu">登录</button>
-        <button type="button" class="btn btn-primary" id="reg">注册</button>
+        <button type="button" class="btn btn-primary" id="reset">重设密码</button>
     </form>
 </div>
 <script>
+
+    $("#sendacccode").click(function () {
+        <%
+        String acccode="";
+        Random random=new Random();
+        for(int i=0;i<6;i++){
+            acccode+=random.nextInt(10);
+        }
+        User user=(User)request.getSession().getAttribute("user");
+        String email=user.getEmail();
+        MailUtils.sendMail(email,"您的验证码是："+acccode,"密码修改验证码");
+        request.getSession().setAttribute("code",acccode);
+        %>
+        alert("验证码已发送");
+    })
 
     $("#reg").click(function () {
         window.location.href="regpage.html"
@@ -66,20 +78,26 @@
 
 
     $(function () {
-        $("#logbu").click(function () {
+        $("#reset").click(function () {
                 var cantrylog=true;
                 if(!checkemail()){
                     alert("请检查邮箱输入格式是否正确");
                     cantrylog=false;
-                }else if(!checkPassword()){
+                }else if(!checkPassword()) {
                     alert("请检查密码输入格式是否正确");
-                    cantrylog=false;
+                    cantrylog = false;
+                }else if($("#password").val()!=$("#passworda").val()){
+                    alert("请检查两次输入的密码是否一致");
+                    cantrylog = false;
                 }
             if(cantrylog){
-                $.post("loginServlet",$("#logform").serialize(),function (data) {
+                $.post("/MyBlog_war_exploded/changePassServlet",$("#logform").serialize(),function (data) {
                                 if(data.flag){
-                                    alert("登录成功，即将跳转至主页");
-                                    window.location.href="index.jsp?pagenum=1";
+                                    alert("密码修改成功，跳转至登录界面");
+                                    window.location.href="loginpage.html";
+                                    <%
+                                    request.getSession().invalidate();
+                                    %>
                                 }else {
                                     alert(data.errorMsg);
                                 }

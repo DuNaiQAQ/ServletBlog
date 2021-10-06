@@ -82,7 +82,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -111,59 +111,61 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                个人中心
+                                用户中心
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 文章管理
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                            <ul class="nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>写文章</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>已发布的文章</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>草稿箱</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>垃圾箱</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        <ul class="nav-treeview">
+                            <li class="nav-item">
+                                <a href="writearticle.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>写文章</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="articles.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>已发布的文章</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./drafts.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>草稿箱</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./rubbishs.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>垃圾箱</p>
+                                </a>
+                            </li>
+
+                        </ul>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -176,11 +178,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>查看评论</p>
+                                    <p>查看我的评论</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -228,8 +231,15 @@
                         <!-- /.card-header -->
                         <div class="card-body" style="height: 750px">
                             <form style="height: 550px;" method action="post" id="article_filed">
-                                <label for="title">标题</label>
+                                <label for="title">${article.getTitle()}</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题" value="${article.getTitle()}">
+                                <input type="hidden" name="role" value="${article.getRole()}">
+                                <input type="hidden" name="email" value="${article.getEmail()}">
+                                <input type="hidden" name="id" value="${article.getId()}">
+                                <input type="hidden" name="create_time" value="${article.getCreate_time()}">
+                                <input type="hidden" name="count_shou" value="${article.getCount_shou()}">
+                                <input type="hidden" name="count_good" value="${article.getCount_good()}">
+                                <input type="hidden" name="status" value="${article.getStatus()}">
                                 <br>
                                 <div id="editor">
                             <textarea style="display:none;" name="text">${article.getText()}</textarea>
@@ -277,7 +287,7 @@
 </script>
 <script>
     $("#save").click(function () {
-        alert("文章发布成功！");
+        alert("文章更新成功成功！");
         $.post("/MyBlog_war_exploded/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
 
         })

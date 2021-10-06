@@ -156,8 +156,11 @@
                         <div class="fakeimg">
                             <img src="img/illust_80073481_20200325_082657.jpg" style="height: 200px; width: 728px">
                         </div>
-                        <p>文章作者：${a.getEmail()} 文章点赞次数:${a.getCount_good()} 文章收藏次数:${a.getCount_shou()}</p>
-                        <hr>
+                        <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 文章作者：${a.getEmail()}</a>
+                        <span>
+                        <a href="none">文章点赞次数:${a.getCount_good()}</a>
+                        <a href="#"> 文章收藏次数:${a.getCount_shou()}</a>
+                        </span>
                     </div>
                 </c:forEach>
                 <ul class="pagination">

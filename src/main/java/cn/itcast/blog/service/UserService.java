@@ -12,4 +12,5 @@ public interface UserService {
     List<User> getAllusers();
     boolean deleteUser(int userid);
     void addUser(User user);
+    void changePass(String email,String pass);
 }

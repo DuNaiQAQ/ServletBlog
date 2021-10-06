@@ -73,4 +73,9 @@ public class  UserServiceImpl implements UserService {
     public void addUser(User user) {
         userDao.save(user);
     }
+
+    @Override
+    public void changePass(String email, String pass) {
+        userDao.changePass(email,pass);
+    }
 }

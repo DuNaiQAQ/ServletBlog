@@ -14,4 +14,7 @@ public interface ArticleService {
     public void changeStatus(Article article);
     public boolean deleteArticle(int article);
     public List<Article> getAllArticles();
+    public void updateInfo(Article article);
+    public boolean addlike(String email,int id);
+    public boolean addfavo(String email,int id);
 }

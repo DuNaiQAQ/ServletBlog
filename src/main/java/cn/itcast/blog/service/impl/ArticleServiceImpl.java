@@ -54,4 +54,19 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getAllArticles() {
         return articleDao.getAllArticles();
     }
+
+    @Override
+    public void updateInfo(Article article) {
+        articleDao.updateInfo(article);
+    }
+
+    @Override
+    public boolean addlike(String email, int id) {
+        return articleDao.setgood(email,id);
+    }
+
+    @Override
+    public boolean addfavo(String email, int id) {
+        return articleDao.setfavorite(email,id);
+    }
 }

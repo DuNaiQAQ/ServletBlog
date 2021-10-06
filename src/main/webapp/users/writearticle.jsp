@@ -9,7 +9,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>个人中心|写文章</title>
-
+    <style>
+        .editormd-dialog{
+            top: 100px !important;
+        }
+    </style>
     <!-- 离线 Google 字体: Source Sans Pro -->
     <link rel="stylesheet" href="/AdminLTE/AdminLTE-3.x/dist/css/google.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome 图标 -->
@@ -79,7 +83,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -125,18 +129,7 @@
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>管理全站用户</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./adduers.jsp" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>添加用户</p>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class="nav-item menu-open">
@@ -172,12 +165,7 @@
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./allarticles.jsp" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>全站所有文章管理</p>
-                                </a>
-                            </li>
+
                         </ul>
                         </a>
                     </li>
@@ -196,12 +184,7 @@
                                     <p>查看我的评论</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./allcoments.jsp" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>查看所有评论</p>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -241,11 +224,10 @@
                             </h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body" style="height: 750px">
+                        <div class="card-body" style="height: 700px;">
                             <form style="height: 550px;" method action="post" id="article_filed">
                                 <label for="title">标题</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
-                                <br>
                                 <div id="editor">
                             <textarea style="display:none;" name="text"></textarea>
                                 </div>
@@ -274,8 +256,8 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -285,17 +267,35 @@
 <script type="text/javascript">
     $(function() {
         var editor = editormd("editor", {
-            width  : "100%",
-            height : "100%",
-            path   : "editormd/lib/"
+            width  : "95%",
+            top    : "100px",
+            height :  "500px",
+            syncScrolling : "single",
+            path   : "../lib/editormd/lib/",
+            imageUpload     : true,
+            imageFormats    : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL  : "/MyBlog_war_exploded/uploadImgServlet",
+            saveHTMLToTextarea : true
         });
     });
 </script>
 <script>
     $("#postar").click(function () {
-        $.post("/MyBlog_war_exploded/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
+        $.post("/MyBlog_war_exploded/uploadarticleServlet?role=1",$("#article_filed").serialize(),function (data) {
+            alert("您的文章已经发布成功");
+            window.location.href="articles.jsp";
         })
     })
+
+    $("#save").click(function () {
+        $.post("/MyBlog_war_exploded/uploadarticleServlet?role=2", $("#article_filed").serialize(), function (data) {
+            alert("您的文章已经保存成功");
+            window.location.href = "drafts.jsp";
+        })
+    })
+    window.onbeforeunload = function (event) {
+        return confirm("您的文章可能没写完，确定要退出吗？");
+    }
 </script>
 <!-- 用于演示 AdminLTE  -->
 <script src="dist/js/demo.js"></script>

@@ -36,4 +36,6 @@ public interface UserDao {
     public User findById(int id);
 
     public User findByEmail(String email);
+
+    public void changePass(String email,String pass);
 }

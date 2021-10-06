@@ -97,4 +97,10 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
+    public void changePass(String email, String pass) {
+        String sql="update user set Password = ? where Email = ?";
+        template.update(sql,pass,email);
+    }
+
 }

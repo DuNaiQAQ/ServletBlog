@@ -80,7 +80,7 @@ public class updateInfoServlet extends HttpServlet {
                     }
                     out.close();
                     in.close();
-                    map.put("head","http://localhost:8080/MyBlog_war_exploded/upload/img/"+fileName);
+                    map.put("head","http://localhost:8080/MyBlog_war_exploded/upload/head/"+fileName);
                     try{
                         Thread.sleep(3000);
                     }catch (InterruptedException e){
@@ -111,9 +111,12 @@ public class updateInfoServlet extends HttpServlet {
             info.setFlag(false);
             info.setErrorMsg("数据更新失败！");
         }
-//        ObjectMapper mapper=new ObjectMapper();
-//        response.setContentType("application/json;charset=utf-8");
-//        mapper.writeValue(response.getOutputStream(),info);
+        UserDao dao=new UserDaoImpl();
+        User user1=dao.findById(user.getId());
+        request.getSession().setAttribute("user",user1);
+        ObjectMapper mapper=new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/userinfo.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

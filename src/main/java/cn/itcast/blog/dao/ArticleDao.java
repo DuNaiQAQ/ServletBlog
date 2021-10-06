@@ -14,4 +14,7 @@ public interface ArticleDao {
     public Article findArticleByID(int id);
     public void deleteArticle(int id);
     public List<Article> getAllArticles();
+    public void updateInfo(Article article);
+    public boolean setfavorite(String email,int id);
+    public boolean setgood(String email,int id);
 }

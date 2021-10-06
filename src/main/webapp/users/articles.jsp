@@ -1,14 +1,27 @@
+<%@ page import="cn.itcast.blog.domain.Article" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cn.itcast.blog.service.ArticleService" %>
+<%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
 -->
+<%
+//在加载页面是需要进行的代码操作
+    List<Article> posta=null;
+    ArticleService articleDao=new ArticleServiceImpl();
+    User user=(User)request.getSession().getAttribute("user");
+    posta=articleDao.getPostArticles(user.getEmail());
+    request.getSession().setAttribute("posta",posta);
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>个人中心|个人资料</title>
+    <title>文章管理|已经发布的文章</title>
 
     <!-- 离线 Google 字体: Source Sans Pro -->
     <link rel="stylesheet" href="/AdminLTE/AdminLTE-3.x/dist/css/google.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -81,11 +94,11 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
-                    <a href="#" class="d-block">用户姓名</a>
+                    <a href="#" class="d-block">${sessionScope.user.getUsername()}</a>
                 </div>
             </div>
 
@@ -107,26 +120,27 @@
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                个人中心
+                                用户中心
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                     <li class="nav-item menu-open">
@@ -139,25 +153,25 @@
                         </a>
                         <ul class="nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="writearticle.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>写文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="articles.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./drafts.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./rubbishs.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
@@ -175,9 +189,9 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>查看评论</p>
+                                    <p>查看我的评论</p>
                                 </a>
                             </li>
                         </ul>
@@ -211,7 +225,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">所有已发布的文章</h3>
+                <h3 class="card-title">我已发布的文章</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -267,16 +281,19 @@
                                         <button type="button" class="btn btn-primary delete">删除</button>
                                     </td>
                                 </tr>
-                                <c:forEach var="a" items="${posta}">
+                                <c:forEach var="a" items="${sessionScope.posta}">
                                     <tr>
-                                        <td>${a.getId()}</td>
+                                        <td class="articleid">${a.getId()}</td>
                                         <td>${a.getEmail()}</td>
                                         <td>${a.getTitle()}</td>
+                                        <td>${a.getCreat_time()}</td>
+                                        <td>${a.getLast_change_time()}</td>
                                         <td>${a.getCount_good()}</td>
                                         <td>${a.getCount_shou()}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary lookat">浏览</button>
-                                            <button type="button" class="btn btn-primary delete">删除</button>
+                                            <button type="button" class="btn btn-primary mdkeit">编辑</button>
+                                            <button type="button" class="btn btn-primary delete">放至垃圾桶</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -301,15 +318,6 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-<script>
-    $(".lookat").click(function () {
-        window.location.href="../articlepage.jsp?articleid=1";
-    })
-
-    $(".delete").click(function(){
-        //这里会参入文章ID参数进行对于文章状态的修改
-    })
-</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -332,6 +340,22 @@
 <script>
     $(document).ready(function () {
         $('#articles').DataTable();
+    })
+</script>
+<script>
+    $(".lookat").click(function () {
+        var id=$(this).parents("tr").find(".articleid").text()
+        window.location.href="../articlepage.jsp?articleid="+id;
+    })
+
+    $(".delete").click(function(){
+        var id=$(this).parents("tr").find(".articleid").text()
+        window.location.href="/MyBlog_war_exploded/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
+    })
+
+    $(".mdkeit").click(function(){
+        var id=$(this).parents("tr").find(".articleid").text()
+        window.location.href="/MyBlog_war_exploded/manage/changearticle.jsp?articleid="+id;
     })
 </script>
 </body>

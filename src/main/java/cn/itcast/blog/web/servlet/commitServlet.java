@@ -30,6 +30,7 @@ public class commitServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String[]> map = request.getParameterMap();
         Comment comment=new Comment();
+        int size=map.get("content").length;
         try {
             BeanUtils.populate(comment,map);
         } catch (IllegalAccessException e) {

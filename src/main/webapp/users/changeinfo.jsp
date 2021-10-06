@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: DuNai
-  Date: 2021/9/12
-  Time: 0:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
@@ -20,9 +14,9 @@
     <!-- 离线 Google 字体: Source Sans Pro -->
     <link rel="stylesheet" href="/AdminLTE/AdminLTE-3.x/dist/css/google.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome 图标 -->
-    <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- 主题样式 -->
-    <link rel="stylesheet" href="./dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -74,8 +68,8 @@
     <!-- 主侧边栏容器 -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- 品牌 Logo -->
-        <a href="#" class="brand-link">
-            <img src="./dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
 
@@ -84,7 +78,7 @@
             <!-- 侧边栏用户面板（可选） -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="./dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="用户头像">
+                    <img src="${sessionScope.user.getHead()}" class="img-circle elevation-2" alt="用户头像">
                 </div>
                 <div class="info">
                     <!--这里到时候用jsp改一下-->
@@ -113,13 +107,13 @@
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                个人中心
+                                用户中心
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="userinfo.jsp" class="nav-link">
+                                <a href="./userinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>个人资料及信息</p>
                                 </a>
@@ -130,6 +124,7 @@
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -142,29 +137,30 @@
                         </a>
                         <ul class="nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="writearticle.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>写文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="loadPostServlet" class="nav-link">
+                                <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./drafts.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>草稿箱</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./rubbishs.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>垃圾箱</p>
                                 </a>
                             </li>
+
                         </ul>
                         </a>
                     </li>
@@ -178,11 +174,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="./mycomments.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>查看评论</p>
+                                    <p>查看我的评论</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -214,45 +211,53 @@
         <!-- 主体内容 -->
         <section class="content">
             <div class="container-fluid">
-                <!--Adminlte表单-->
-                <div class="card card-primary" style="align: center;width: 1000px">
-                    <div class="card-header">
-                        <h3 class="card-title">修改个人信息</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form action method="post" id="changeform">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="username">用户名</label>
-                                <input type="email" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">密码</label>
-                                <button type="button" class="btn btn-primary" id="password">点击进入密码重设页面</button>
-                            </div>
-                            <div class="form-group">
-                                <label for="self_content">密码</label>
-                                <input type="password" class="form-control" id="self_content" name="self_content" placeholder="这里会显示原来个人简介" value="${sessionScope.user.getSelf_content()}">
-                            </div>
-                            <div class="form-group">
-                                <label> 生日：</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="date" class="form-control" name="birth" id="birth" value="${sessionScope.user.getBirth()}">
+                    <!--Adminlte表单-->
+                    <div class="card card-primary" style="align: center;width: 1000px">
+                        <div class="card-header">
+                            <h3 class="card-title">修改个人信息</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form id="info" method="post" action="/MyBlog_war_exploded/updateInfoServlet" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <input type="hidden" name="id" value="${sessionScope.user.getId()}">
+                                <div class="form-group">
+                                    <label for="username">用户名</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
                                 </div>
-                                <!-- /.input group -->
+                                 <div class="form-group">
+                                     <label>头像</label>
+                                     <p>上传头像时建议使用1:1的大小</p>
+                                     <label>当前头像</label>
+                                     <img id="head" src="${sessionScope.user.getHead()}" style="height: 100px;width: 100px">
+                                     <input id="input_head" type="file" accept="image/*" class="btn-file" name="head">
+                                 </div>
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <button type="button" class="btn btn-primary" id="resetpass">点击进入密码重设页面</button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="self_content">个人简介</label><br>
+                                    <input type="text" class="form-control" id="self_content" name="self_content" placeholder="这里会显示原来个人简介" value="${sessionScope.user.getSelf_content()}">
+                                </div>
+                                <div class="form-group">
+                                        <label> 生日：</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="date" class="form-control" name="birth" id="birth" value="${sessionScope.user.getBirth()}">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.card-body -->
+                            <!-- /.card-body -->
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">提交</button>
-                        </div>
-                    </form>
-                </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" id="save">提交</button>
+                            </div>
+                        </form>
+                    </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
@@ -268,12 +273,16 @@
 <!-- ./wrapper -->
 
 <!-- 载入脚本 -->
-
 <!-- jQuery -->
-<script src="./plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="./dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script>
+    $("#resetpass").click(function () {
+        window.location.href="http://localhost:8080/MyBlog_war_exploded/changePassword.jsp";
+    })
+</script>
 </body>
 </html>

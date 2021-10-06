@@ -2,7 +2,9 @@ package cn.itcast.blog.dao.impl;
 
 import cn.itcast.blog.dao.ArticleDao;
 import cn.itcast.blog.dao.impl.rowmappers.ArticleRowMapper;
+import cn.itcast.blog.dao.impl.rowmappers.TempRowMapper;
 import cn.itcast.blog.domain.Article;
+import cn.itcast.blog.domain.GoodAndFavo;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -67,6 +69,39 @@ public class ArticleImpl implements ArticleDao {
     public List<Article> getAllArticles() {
         String sql="select * from article";
         return  template.query(sql,new ArticleRowMapper());
+    }
+
+    @Override
+    public void updateInfo(Article article) {
+        String sql="update article set author_email=?,title=?,text=?,status=?,create_time=?,last_change_time=?,count_good=?,count_shou=? where id = ?";
+        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
+                article.getCount_good(),article.getCount_shou(),article.getId());
+    }
+
+    @Override
+    public boolean setfavorite(String email, int id) {
+        String sql="select * from userfavorite where user_email = ? and post_id = ?";
+        List<GoodAndFavo> exist=template.query(sql,new TempRowMapper(),email,id);
+        if(exist.size()==1){
+            return false;
+        }else {
+            String insql="insert into userfavorite(user_email,post_id) values(?,?)";
+            template.update(insql,email,id);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean setgood(String email, int id) {
+        String sql="select * from userlike where user_email = ? and post_id = ?";
+        List<GoodAndFavo> exist=template.query(sql,new TempRowMapper(), email,id);
+        if(exist.size()==1){
+            return false;
+        }else {
+            String insql="insert into userlike(user_email,post_id) values(?,?)";
+            template.update(insql,email,id);
+            return true;
+        }
     }
 
 

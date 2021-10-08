@@ -30,11 +30,11 @@ public class changestatusServlet extends HttpServlet {
             service.changeStatus(article);
         }
         if(page==1) {
-            response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/articles.jsp");
+            response.sendRedirect(request.getContextPath()+"/manage/articles.jsp");
         }else if(page==2){
-            response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/drafts.jsp");
+            response.sendRedirect(request.getContextPath()+"/manage/drafts.jsp");
         }else if(page==3){
-            response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/rubbishs.jsp");
+            response.sendRedirect(request.getContextPath()+"/manage/rubbishs.jsp");
         }
     }
 

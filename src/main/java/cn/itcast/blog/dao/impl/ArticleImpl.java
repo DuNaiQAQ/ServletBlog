@@ -10,6 +10,7 @@ import cn.itcast.blog.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleImpl implements ArticleDao {
@@ -61,7 +62,7 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public void deleteArticle(int id) {
-        String sql="delete * from article where id = ?";
+        String sql="delete from article where id = ?";
         template.update(sql,id);
     }
 
@@ -102,6 +103,39 @@ public class ArticleImpl implements ArticleDao {
             template.update(insql,email,id);
             return true;
         }
+    }
+
+    @Override
+    public boolean delfavo(String email, int id) {
+        String sql="select * from userfavorite where user_email = ? and post_id = ?";
+        List<GoodAndFavo> exist=template.query(sql,new TempRowMapper(), email,id);
+        if(exist.size()==1){
+            String insql="delete from userfavorite where user_email = ? and post_id = ?";
+            template.update(insql,email,id);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<Article> findAllPostArticle() {
+        String sql="select * from article where status = 1";
+        return template.query(sql,new ArticleRowMapper());
+    }
+
+    @Override
+    public List<Article> readFavorite(String email) {
+        List<GoodAndFavo> temp=null;
+        String sql="select * from userfavorite where user_email = ?";
+        temp=template.query(sql,new TempRowMapper(),email);
+        List<Article> favo=new ArrayList<Article>();
+        for(int i=0;i<temp.size();i++){
+            String sql2="select * from article where id = ?";
+            Article article=(Article) template.queryForObject(sql,new ArticleRowMapper(),temp.get(i).getPost_id());
+            favo.add(article);
+        }
+        return favo;
     }
 
 

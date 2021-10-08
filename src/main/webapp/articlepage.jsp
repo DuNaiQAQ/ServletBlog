@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="./manage/plugins/fontawesome-free/css/all.min.css">
     <!-- 主题样式 -->
     <link rel="stylesheet" href="./manage/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- AdminLTE App -->
     <script src="./manage/dist/js/adminlte.min.js"></script>
 </head>
@@ -56,7 +57,7 @@
                 <li class="nav-item">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp?pagenum=1">首页</a>
+                    <a class="nav-link" href="index.jsp?pagenum=1">首页</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="articlepage.jsp">个人简介</a>
@@ -95,27 +96,36 @@
         <div class="row">
             <div class="col-sm-8" id="articleview">
                 <div class="card">
+                    <div class="card-header">
                     <h1>${article.getTitle()}</h1>
-                    <span>文章作者:${article.getEmail()}</span><span
-                        id="sumgood"> 点赞次数:${article.getCount_good()}</span><span
-                        id="sumfavo"> 收藏次数:${article.getCount_shou()}</span>
+                    <i class="bi-person-fill"></i><a style="color: black">${article.getEmail()}</a>
+                    <i class="bi-heart-fill"></i><a id="sumgood" style="color: black">${article.getCount_good()}</a>
+                        <i class="bi-star-fill"></i><a id="sumfavo" style="color: black">${article.getCount_shou()}</a>
                     <ui class="nav-item">
-                        <button type="button" class="btn btn-default" id="addgood">点赞</button>
-                        <button type="button" class="btn btn-dark" id="addfavorite">收藏</button>
+                        <button type="button" class="btn btn-default" id="addgood" style="float:right;">点赞</button>
+                        <button type="button" class="btn btn-dark" id="addfavorite" style="float: right;">收藏</button>
                     </ui>
+                    </div>
+                    <div class="card-body">
                     <div class="border border-top-0"></div>
                     <div id="texta">
                         <textarea id="texts" style="display:none;">${article.getText()}</textarea>
                     </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-4" id="othersinfoview" style="height: 1000px;border: dot-dot-dash">
+            <div class="col-sm-4" id="othersinfoview" style="border: dot-dot-dash">
                 <div class="card">
                     <h3>个人信息</h3>
-                    <div class="fakeimg">这里随便选张图片</div>
-                    <p>个人简介</p>
+                    <div class="card-header">
+                    <h4>个人简介</h4>
+                    </div>
+                    <div class="card-body">
+                    <p>摸鱼程序员</p>
+                    <p>正经人谁自己写前端.jpg</p>
+                    </div>
                     <h3>友情链接</h3>
-                    <p>这里的链接都是一些实用网站（包括表博客）</p>
+                    <p>这里的链接都是一些实用网站</p>
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
                             <a class="nav-link" href="http://blog.dunaixdd.cn">个人博客</a>
@@ -133,9 +143,12 @@
                 </div>
             </div>
             <div id="comment_area">
-                <div class="card" style="width: 1125px;margin: auto">
+                <br>
+                <div>
                     <c:forEach var="com" items="${comments}">
-                        <div class="post">
+                        <c:if test="${com.getParent_name()!=null}"><div  style="width: 1140px;height: 260px"></c:if>
+                        <c:if test="${com.getParent_name()==null}"><div  style="width: 1140px;height: 210px"></c:if>
+                        <div class="post card">
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="${com.getUname_head()}" alt="用户头像">
                                 <span class="username">
@@ -170,13 +183,14 @@
                                 </div>
                             </form>
                         </div>
+                        </div>
                     </c:forEach>
                     <div class="post">
                         有什么想说的？
                         <form class="form-horizontal" id="sendc">
                             <input type="hidden" name="post_id" value="${article.getId()}">
                             <div class="input-group input-group-sm mb-0">
-                                <textarea class="form-control form-control-sm" name="content" style="height: 100px"
+                                <textarea class="form-control form-control-sm" name="content" style="height: 100px;width: 1140px"
                                           placeholder="说点什么吧呜呜"></textarea>
                             </div>
                             <div class="input-group-append">
@@ -204,16 +218,16 @@
 <script src="lib/editormd/editormd.min.js"></script>
 <script>
     $("#sendcommit").click(function () {
-        $.post("/MyBlog_war_exploded/commitServlet", $("#sendc").serialize(), function (data) {
+        $.post("/commitServlet", $("#sendc").serialize(), function (data) {
             if (data.flag) {
                 alert("评论发送成功！");
-                window.location.href = "http://localhost:8080/MyBlog_war_exploded/articlepage.jsp?articleid=${article.getId()}";
+                window.location.href = "http://localhost:8080/articlepage.jsp?articleid=${article.getId()}";
             }
         })
     })
 
     $(".sendreply").click(function () {
-        $.post("/MyBlog_war_exploded/commitServlet?", $(this).parents(".sendr").serialize(), function (data) {
+        $.post("/commitServlet?", $(this).parents(".sendr").serialize(), function (data) {
             if (data.flag) {
                 alert("回复发送成功！");
                 location.reload();
@@ -222,7 +236,7 @@
     })
 
     $("#addgood").click(function () {
-        $.get("/MyBlog_war_exploded/commitServlet", $(".sendr").serialize(), function (data) {
+        $.get("/commitServlet", $(".sendr").serialize(), function (data) {
             if (data.flag) {
                 alert("回复发送成功！");
                 location.reload();
@@ -235,14 +249,14 @@
             alert("只有登录用户才能进行操作哦")
         } else {
             $.ajax({
-                url: "/MyBlog_war_exploded/addgoodServlet?id",
+                url: "/addgoodServlet?id",
                 data: {"articleid":${id}},
                 type: "get",
                 dataType: "JSON",
                 success: function (rs) {
                     if(rs.sumlike!=-1) {
                         alert("点赞成功！");
-                        var s = "点赞次数:"+rs.sumlike
+                        var s = rs.sumlike
                         $("#sumgood").html(s);
                     }else {
                         alert("您已经点赞过了呢~");
@@ -260,21 +274,36 @@
             alert("只有登录用户才能进行操作哦")
         } else {
             $.ajax({
-                url: "/MyBlog_war_exploded/addfavoriteServlet",
+                url: "/addfavoriteServlet",
                 data: {"articleid":${id}},
                 type: "get",
                 dataType: "JSON",
                 success: function (rs) {
                     if(rs.sumfav!=-1) {
                         alert("收藏成功！");
-                        var s = "收藏次数:"+rs.sumfav
+                        var s = +rs.sumfav
                         $("#sumfavo").html(s);
                     }else {
-                        alert("您已经收藏过了呢~");
+                        var a=confirm("您已经收藏过了，确定要取消收藏吗？");
+                        if(a){
+                            $.ajax({
+                                url: "/delfavoriteServlet",
+                                data: {"articleid":${id}},
+                                type: "get",
+                                dataType: "JSON",
+                                success:function (rs) {
+                                    if(rs.sumfav!=-1) {
+                                        alert("取消收藏成功！");
+                                        var s = rs.sumfav
+                                        $("#sumfavo").html(s);
+                                    }
+                                }
+                            })
+                        }
                     }
                 },
                 error: function (rs) {
-                    alert("您已经收藏过了呢~");
+                    alert("500！");
                 }
             })
         }
@@ -296,6 +325,18 @@
         flowChart: true,  // 默认不解析
         sequenceDiagram: true  // 默认不解析
     });
+
+    $("#myprofile").click(function () {
+        if(${sessionScope.user != null}) {
+            if(${sessionScope.user.getRole()==1}) {
+                window.location.href = "manage/userinfo.jsp";
+            }else{
+                window.location.href="users/userinfo.jsp";
+            }
+        }else {
+            alert("您还没有登录！先请登录！");
+        }
+    })
 </script>
 </body>
 </html>

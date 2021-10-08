@@ -17,4 +17,7 @@ public interface ArticleDao {
     public void updateInfo(Article article);
     public boolean setfavorite(String email,int id);
     public boolean setgood(String email,int id);
+    public boolean delfavo(String email,int id);
+    public List<Article> findAllPostArticle();
+    public List<Article> readFavorite(String email);
 }

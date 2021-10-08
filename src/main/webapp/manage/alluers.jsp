@@ -50,7 +50,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
+                <a href="../index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -178,6 +178,11 @@
                                 <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
+                                </a>
+                            </li>                            <li class="nav-item">
+                                <a href="kinds.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>分类管理</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -370,7 +375,7 @@
 
     $(".delete").click(function(){
         var id=$(this).parents("tr").find(".userid").text()
-        window.location.href="/MyBlog_war_exploded/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
+        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
     })
 </script>
 </body>

@@ -99,4 +99,6 @@ public class Article {
     public void setCount_shou(int count_shou) {
         this.count_shou = count_shou;
     }
+
+
 }

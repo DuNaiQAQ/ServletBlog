@@ -48,7 +48,7 @@
 <script>
 
     $("#sendacccode").click(function () {
-        $.post("/MyBlog_war_exploded/sendAccServlet",$("#logform").serialize(),function (data) {
+        $.post("/sendAccServlet",$("#logform").serialize(),function (data) {
             if(data.flag){
                 alert("验证码发送成功");
             }else {
@@ -90,7 +90,7 @@
                     cantrylog = false;
                 }
             if(cantrylog){
-                $.post("/MyBlog_war_exploded/changePassServlet",$("#logform").serialize(),function (data) {
+                $.post("/changePassServlet",$("#logform").serialize(),function (data) {
                                 if(data.flag){
                                     alert("密码修改成功，跳转至登录界面");
                                     window.location.href="loginpage.html";

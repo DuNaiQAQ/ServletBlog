@@ -71,7 +71,7 @@ public class uploadImgServlet extends HttpServlet {
                     in.close();
                     jsonObject.put("success",1);
                     jsonObject.put("message","上传成功");
-                    jsonObject.put("url","http://localhost:8080/MyBlog_war_exploded/upload/img/"+fileName);
+                    jsonObject.put("url",request.getContextPath()+"/upload/img/"+fileName);
                     try{
                         Thread.sleep(3000);
                     }catch (InterruptedException e){

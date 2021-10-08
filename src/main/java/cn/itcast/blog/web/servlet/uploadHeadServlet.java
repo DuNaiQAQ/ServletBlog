@@ -23,8 +23,8 @@ public class uploadHeadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String,String> map=new HashMap<>();
-        String realPath = this.getServletContext().getRealPath("http://localhost:8080/MyBlog_war_exploded/upload/img/");
-        String tempPath=this.getServletContext().getRealPath("http://localhost:8080/MyBlog_war_exploded/upload/temp/");
+        String realPath = this.getServletContext().getRealPath(request.getContextPath()+"/upload/img/");
+        String tempPath=this.getServletContext().getRealPath(request.getContextPath()+"/upload/temp/");
         File f=new File(realPath);
         File ft=new File(tempPath);
         if(!f.exists()&&!f.isDirectory()){
@@ -70,7 +70,7 @@ public class uploadHeadServlet extends HttpServlet {
                     in.close();
 //                    jsonObject.put("success",1);
 //                    jsonObject.put("message","上传成功");
-//                    jsonObject.put("url","http://localhost:8080/MyBlog_war_exploded/upload/img/"+fileName);
+//                    jsonObject.put("url","http://localhost:8080/upload/img/"+fileName);
                     try{
                         Thread.sleep(3000);
                     }catch (InterruptedException e){

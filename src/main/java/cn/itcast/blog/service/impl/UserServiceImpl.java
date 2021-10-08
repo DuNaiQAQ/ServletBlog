@@ -5,6 +5,7 @@ import cn.itcast.blog.dao.impl.UserDaoImpl;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.service.UserService;
 import cn.itcast.blog.util.MailUtils;
+import cn.itcast.blog.util.Md5Util;
 import cn.itcast.blog.util.UuidUtil;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class  UserServiceImpl implements UserService {
 
         userDao.save(user);
 
-        String content="<a href='http://localhost:8080/MyBlog_war_exploded/activeUserServlet?code="+user.getCode()+"'>点击激活【DuNai个人博客】</a>";
+        String content="<a href='http://localhost:8080/activeUserServlet?code="+user.getCode()+"'>点击激活【DuNai个人博客】</a>";
         MailUtils.sendMail(user.getEmail(),content,"激活邮件");
         return true;
     }
@@ -46,7 +47,13 @@ public class  UserServiceImpl implements UserService {
 
     @Override
     public User login(User user) {
-        return userDao.findByUsernameAndPassword(user.getEmail(),user.getPassword());
+        User user1=null;
+        try {
+            user1=userDao.findByUsernameAndPassword(user.getEmail(), Md5Util.encodeByMd5(user.getPassword()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user1;
     }
 
     @Override

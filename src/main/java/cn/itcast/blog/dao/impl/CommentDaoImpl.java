@@ -52,8 +52,9 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     public void deleteComment(int id) {
-        String sql="delete * from comment where id = ?";
+        String sql="delete from comment where id = ?";
         template.update(sql,id);
     }
+
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

@@ -17,4 +17,6 @@ public interface ArticleService {
     public void updateInfo(Article article);
     public boolean addlike(String email,int id);
     public boolean addfavo(String email,int id);
+    public boolean delfavo(String email,int id);
+    public List<Article> getfav(String email);
 }

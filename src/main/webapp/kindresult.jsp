@@ -14,61 +14,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-    ArticleService service=new ArticleServiceImpl();
-    List<Article> articles=service.getAllPostArticles();
-    int pagesize=0;
-    int flag=0;
-    int pagenum=0;
-    List<Article> pageArticles = new ArrayList<Article>();
-    if(articles.size()!=0) {
-        if ((articles.size() % 3) == 0) {
-            pagesize = articles.size() / 3;
-        } else {
-            pagesize = articles.size() / 3 + 1;
-        }
-        pagenum = Integer.valueOf(request.getParameter("pagenum"));
-        //从这里开始初始化文章主页面信息，固定每页显示3个文章
-        if ((articles.size() - 3 * pagenum) < 0) {
-            flag = 0;
-        } else {
-            flag = articles.size() - pagenum * 3;
-        }
-        for (int i = articles.size() - 1 - (pagenum - 1) * 3; i >= flag; i--) {
-            pageArticles.add(articles.get(i));
-        }
-    }else {
-
-    }
-    if(pagenum==0){
-        response.sendRedirect("index.jsp?pagenum=1");
-    }else {
-        String pre,next;
-        if((pagenum-1)==0) {
-            pre = "index.jsp?pagenum=" + pagenum;
-        }else{
-            pre = "index.jsp?pagenum=" + (pagenum - 1);
-        }
-        if((pagenum+1)>pagesize) {
-            next = "index.jsp?pagenum=" + pagenum;
-        }else {
-            next = "index.jsp?pagenum=" + (pagenum + 1);
-        }
-        pageContext.setAttribute("pre",pre);
-        pageContext.setAttribute("next",next);
-        pageContext.setAttribute("size",pagesize);
-        pageContext.setAttribute("num",pagenum);
-        pageContext.setAttribute("articles",pageArticles);
-    }
-%>
-
-<%
-    User user=(User) session.getAttribute("user");
-    if(user!=null) {
-        List<Article> favolist = service.getfav(user.getEmail());
-        pageContext.setAttribute("fav", favolist);
-    }
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,48 +89,14 @@
     </div>
 
 </header>
-<div id="demo" class="carousel slide container" data-ride="carousel">
 
-    <!-- 指示符 -->
-    <ul class="carousel-indicators">
-        <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <li data-target="#demo" data-slide-to="1"></li>
-        <li data-target="#demo" data-slide-to="2"></li>
-    </ul>
-
-    <!-- 轮播图片 -->
-    <div class="carousel-inner">
-        <h1>文章推荐</h1>
-        <div class="carousel-item active">
-            <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot1['id']}" style="text-align: center;display: block">${hot1['title']}</a>
-        </div>
-        <div class="carousel-item">
-            <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot2['id']}" style="text-align: center;display: block">${hot2['title']}</a>
-        </div>
-        <div class="carousel-item">
-            <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot3['id']}" style="text-align: center;display: block">${hot3['title']}</a>
-        </div>
-    </div>
-
-    <!-- 左右切换按钮 -->
-    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </a>
-
-</div>
 <!--文章部分-->
 <article>
     <div class="container">
         <div class="row">
             <div class="col-sm-8" id="articleview">
-                <h2>文章列表</h2>
-                <c:forEach var="a" items="${articles}">
+                <h2>搜索结果</h2>
+                <c:forEach var="a" items="${kind_of_article}">
                     <!--这是一个文章-->
                     <div class="post" style="height:430px ">
                     <div class="article card">
@@ -210,12 +121,6 @@
                     </div>
                     </div>
                 </c:forEach>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="${pre}">上一页</a></li>
-                    <li class="page-item"><a class="page-link" href="${next}">下一页</a></li>
-                    <p>当前第${num}页，一共有${size}页</p>
-                </ul>
-
             </div>
             <div class="col-sm-4" id="othersinfoview">
                 <div class="card">
@@ -249,11 +154,10 @@
                     <h3>文章搜索</h3>
                     </div>
                     <div class="card-body">
-                    <form class="form-inline" action="/serachServlet" method="post">
+                    <form class="form-inline">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="搜索"
-                                   name="name" aria-label="Search" style="width: 170px">
-                                <button class="btn btn-navbar" type="submit" style="height: 31px;width: 31px" >
+                            <input class="form-control form-control-navbar" type="search" placeholder="搜索" aria-label="Search" style="width: 170px">
+                                <button class="btn btn-navbar" type="submit" style="height: 31px;width: 31px">
                                     <i class="fas fa-search"></i>
                                 </button>
                         </div>

@@ -21,11 +21,15 @@ public class deleteServlet extends HttpServlet {
         if(method==1){
             ArticleService service=new ArticleServiceImpl();
             service.deleteArticle(id);
-            response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/rubbishs.jsp");
+            response.sendRedirect(request.getContextPath()+"/manage/rubbishs.jsp");
         }else if(method==2){
             CommetService service=new CommentServiceImpl();
             service.deleteComment(id);
-            response.sendRedirect("http://localhost:8080/MyBlog_war_exploded/manage/mycomments.jsp");
+            response.sendRedirect(request.getContextPath()+"/manage/mycomments.jsp");
+        }else if(method==3){
+            CommetService service=new CommentServiceImpl();
+            service.deleteComment(id);
+            response.sendRedirect(request.getContextPath()+"/manage/allcomments.jsp");
         }
     }
 

@@ -34,7 +34,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
+                <a href="../index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -151,6 +151,11 @@
                                 <a href="articles.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
+                                </a>
+                            </li>                            <li class="nav-item">
+                                <a href="kinds.jsp" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>分类管理</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -274,21 +279,21 @@
             path   : "../lib/editormd/lib/",
             imageUpload     : true,
             imageFormats    : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL  : "/MyBlog_war_exploded/uploadImgServlet",
+            imageUploadURL  : "/uploadImgServlet",
             saveHTMLToTextarea : true
         });
     });
 </script>
 <script>
     $("#postar").click(function () {
-        $.post("/MyBlog_war_exploded/uploadarticleServlet?role=1",$("#article_filed").serialize(),function (data) {
+        $.post("/uploadarticleServlet?role=1",$("#article_filed").serialize(),function (data) {
             alert("您的文章已经发布成功");
             window.location.href="articles.jsp";
         })
     })
 
     $("#save").click(function () {
-        $.post("/MyBlog_war_exploded/uploadarticleServlet?role=2", $("#article_filed").serialize(), function (data) {
+        $.post("/uploadarticleServlet?role=2", $("#article_filed").serialize(), function (data) {
             alert("您的文章已经保存成功");
             window.location.href = "drafts.jsp";
         })

@@ -12,7 +12,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDao articleDao=new ArticleImpl();
     @Override
     public List<Article> getAllPostArticles() {
-        return articleDao.findAllArticles();
+        return articleDao.findAllPostArticle();
     }
 
     @Override
@@ -47,7 +47,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public boolean deleteArticle(int article) {
-        return false;
+        articleDao.deleteArticle(article);
+        return true;
     }
 
     @Override
@@ -68,5 +69,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public boolean addfavo(String email, int id) {
         return articleDao.setfavorite(email,id);
+    }
+
+    @Override
+    public boolean delfavo(String email, int id) {
+        return articleDao.delfavo(email,id);
+    }
+
+    @Override
+    public List<Article> getfav(String email) {
+        return articleDao.readFavorite(email);
     }
 }

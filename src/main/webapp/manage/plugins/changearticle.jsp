@@ -30,7 +30,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="http://localhost:8080/MyBlog_war_exploded/index.jsp?pagenum=1" class="nav-link">主页</a>
+                <a href="../index.jsp?pagenum=1" class="nav-link">主页</a>
             </li>
         </ul>
 
@@ -271,7 +271,7 @@
 <script>
     $("#postar").click(function () {
         alert("文章发布成功！");
-        $.post("/MyBlog_war_exploded/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
+        $.post("/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
 
         })
     })

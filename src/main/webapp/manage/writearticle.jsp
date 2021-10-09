@@ -1,9 +1,20 @@
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
 -->
+<%
+    KindService service=new KindServiceImpl();
+    List<Kind> kinds=service.getKindList();
+    if(kinds!=null) {
+        pageContext.setAttribute("kinds", kinds);
+    }
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -257,8 +268,8 @@
                                 <div class="form-group">
                                     <label for="exampleSelectRounded0">扁平化 <code>.rounded-0</code></label>
                                     <select class="custom-select rounded-0" id="exampleSelectRounded0" name="kindid">
-                                        <c:forEach var="" items="">
-                                            <option value=""></option>
+                                        <c:forEach var="a" items="${kinds}">
+                                            <option value="${a.id}">${a.kind_name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

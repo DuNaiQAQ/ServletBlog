@@ -1,15 +1,27 @@
+<%@ page import="cn.itcast.blog.domain.Article" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cn.itcast.blog.service.ArticleService" %>
+<%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
 -->
+<%
+    KindService service=new KindServiceImpl();
+    List<Kind> kinds=service.getKindList();
+    pageContext.setAttribute("kinds",kinds);
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>个人中心|修改个人资料</title>
+    <title>文章管理|已经发布的文章</title>
 
     <!-- 离线 Google 字体: Source Sans Pro -->
     <link rel="stylesheet" href="/AdminLTE/AdminLTE-3.x/dist/css/google.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -17,6 +29,10 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- 主题样式 -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -103,8 +119,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- 使用 .nav-icon 类添加图标，
                          或使用 font-awesome 或其他任何图标字体库 -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 用户中心
@@ -119,13 +135,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="changeinfo.jsp" class="nav-link active">
+                                <a href="changeinfo.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>修改个人资料</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./alluers.jsp" class="nav-link">
+                                <a href="./alluers.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理全站用户</p>
                                 </a>
@@ -138,7 +154,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item menu-open">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
@@ -158,8 +174,9 @@
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>已发布的文章</p>
                                 </a>
-                            </li>                            <li class="nav-item">
-                                <a href="kinds.jsp" class="nav-link">
+                            </li>
+                            <li class="nav-item">
+                                <a href="articles.jsp" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>分类管理</p>
                                 </a>
@@ -216,76 +233,94 @@
     </aside>
 
     <!-- Content Wrapper. 包含页面内容 -->
-    <div class="content-wrapper" style="min-height: 3604px;">
+    <div class="content-wrapper">
         <!-- 内容标题（页面标题） -->
-        <section class="content-header">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>资料</h1>
-                    </div>
+                        <h1 class="m-0">文章管理</h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">首页</a></li>
-                            <li class="breadcrumb-item active">用户资料</li>
+                            <li class="breadcrumb-item"><a href="#">文章管理</a></li>
+                            <li class="breadcrumb-item active">已发布的文章</li>
                         </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">我已发布的文章</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div id="articles_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <table id="articles" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid" aria-describedby="articles_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="articles" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="分类ID: activate to sort column descending">分类ID
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="分类名称: activate to sort column ascending">分类名称
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="操作: activate to sort column ascending">操作
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="a" items="${kinds}">
+                                    <tr>
+                                        <td class="id">${a.id}</td>
+                                        <td>${a.kind_name}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary lookat">浏览</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">添加分类</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form id="addk">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="kindname">分类名称</label>
+                                            <input type="text" class="form-control" id="kindname" name="kindname" placeholder="输入添加的分类名称">
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary" id="addkdd">添加</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
-        </section>
-
-        <!-- 主体内容 -->
-        <section class="content">
-            <div class="container-fluid">
-                    <!--Adminlte表单-->
-                    <div class="card card-primary" style="align: center;width: 1000px">
-                        <div class="card-header">
-                            <h3 class="card-title">修改个人信息</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form id="info" method="post" action="/updateInfoServlet" enctype="multipart/form-data">
-                            <div class="card-body">
-                                <input type="hidden" name="id" value="${sessionScope.user.getId()}">
-                                <div class="form-group">
-                                    <label for="username">用户名</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="这里会显示原来的用户名" value="${sessionScope.user.getUsername()}">
-                                </div>
-                                 <div class="form-group">
-                                     <label>头像</label>
-                                     <p>上传头像时建议使用1:1的大小</p>
-                                     <label>当前头像</label>
-                                     <img id="head" src="${sessionScope.user.getHead()}" style="height: 100px;width: 100px">
-                                     <input id="input_head" type="file" accept="image/*" class="btn-file" name="head">
-                                 </div>
-                                <div class="form-group">
-                                    <label>密码</label>
-                                    <button type="button" class="btn btn-primary" id="resetpass">点击进入密码重设页面</button>
-                                </div>
-                                <div class="form-group">
-                                    <label for="self_content">个人简介</label><br>
-                                    <input type="text" class="form-control" id="self_content" name="self_content" placeholder="这里会显示原来个人简介" value="${sessionScope.user.getSelf_content()}">
-                                </div>
-                                <div class="form-group">
-                                        <label> 生日：</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="date" class="form-control" name="birth" id="birth" value="${sessionScope.user.getBirth()}">
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button class="btn btn-primary" id="save">提交</button>
-                            </div>
-                        </form>
-                    </div>
-            </div><!-- /.container-fluid -->
-        </section>
+            </div>
+            <!-- /.card-body -->
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -305,9 +340,40 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
-    $("#resetpass").click(function () {
-        window.location.href="../changePassword.jsp";
+    $(document).ready(function () {
+        $('#articles').DataTable();
+    })
+</script>
+<script>
+    $("#addkdd").click(function () {
+        $.post("/addkindServlet",$("#addk").serialize(),function (data) {
+            if(data.flag){
+                alert("添加分类成功！");
+                window.location.href="kinds.jsp";
+            }
+            else {
+                alert(data.errorMsg);
+            }
+        })
+    })
+
+    $(".delete").click(function(){
+        var id=$(this).parents("tr").find(".id").text()
+        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
     })
 </script>
 </body>

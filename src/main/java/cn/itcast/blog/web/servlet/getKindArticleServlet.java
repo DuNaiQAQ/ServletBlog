@@ -18,7 +18,7 @@ public class getKindArticleServlet extends HttpServlet {
         KindService service=new KindServiceImpl();
         List<Article> articles=service.getKindArticles(id);
         request.getSession().setAttribute("kind_of_article",articles);
-        response.sendRedirect(request.getContextPath());
+        response.sendRedirect(request.getContextPath()+"/kindresult.jsp");
     }
 
     @Override

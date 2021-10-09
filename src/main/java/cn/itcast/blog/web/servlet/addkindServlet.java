@@ -20,7 +20,7 @@ public class addkindServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String kindname=(String)request.getSession().getAttribute("kindname");
+        String kindname=(String)request.getParameter("kindname");
         KindService service=new KindServiceImpl();
         ResultInfo info=new ResultInfo();
         Kind kind=new Kind();

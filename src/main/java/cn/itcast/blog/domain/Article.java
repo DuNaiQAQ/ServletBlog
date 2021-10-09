@@ -12,17 +12,14 @@ public class Article {
     private Timestamp last_change_time;
     private int count_good;
     private int count_shou;
+    private int kind_id;
 
-    public Article(int id, String email, String title, String text, int status, Timestamp creat_time, Timestamp last_change_time,int count_good,int count_shou) {
-        this.id = id;
-        this.email = email;
-        this.title = title;
-        this.text = text;
-        this.status = status;
-        this.creat_time = creat_time;
-        this.last_change_time = last_change_time;
-        this.count_good=count_good;
-        this.count_shou=count_shou;
+    public int getKind_id() {
+        return kind_id;
+    }
+
+    public void setKind_id(int kind_id) {
+        this.kind_id = kind_id;
     }
 
     public Article() {

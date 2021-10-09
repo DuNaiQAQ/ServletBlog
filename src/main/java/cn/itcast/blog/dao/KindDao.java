@@ -11,4 +11,5 @@ public interface KindDao {
     public List<Article> getKindArticles(int id);
     public boolean deletekind(int id);
     public void getConnectionWithArticle(int a_id,int p_id);
+    public List<Kind> getKindList();
 }

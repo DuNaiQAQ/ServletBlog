@@ -3,6 +3,9 @@
 <%@ page import="cn.itcast.blog.service.ArticleService" %>
 <%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
 <%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
@@ -16,6 +19,9 @@
     User user=(User)request.getSession().getAttribute("user");
     posta=articleDao.getPostArticles(user.getEmail());
     request.getSession().setAttribute("posta",posta);
+
+    KindService kindService=new KindServiceImpl();
+    List<Kind> kinds=kindService.getKindList();
 %>
 <html lang="en">
 <head>
@@ -279,6 +285,9 @@
                                         aria-label="文章标题: activate to sort column ascending">文章标题
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
+                                        aria-label="分类ID: activate to sort column ascending">分类ID
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
                                         aria-label="发布时间: activate to sort column ascending">发布时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
@@ -314,6 +323,7 @@
                                         <td class="articleid">${a.getId()}</td>
                                         <td>${a.getEmail()}</td>
                                         <td>${a.getTitle()}</td>
+                                        <td>${a.kind_id}</td>
                                         <td>${a.getCreat_time()}</td>
                                         <td>${a.getLast_change_time()}</td>
                                         <td>${a.getCount_good()}</td>

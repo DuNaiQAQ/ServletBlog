@@ -5,7 +5,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.util.Comparator" %>
-<%@ page import="cn.itcast.blog.domain.User" %><%--
+<%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: DuNai
   Date: 2021/9/10
@@ -20,7 +23,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>博客首页</title>
+    <title>分类文章</title>
     <!--引入bootstrap的css文件-->
     <link rel="stylesheet"  href="lib/bootstrap-4.6.0-dist/css/bootstrap.min.css">
     <link rel="stylesheet"  href="css/mainpagestyle.css">
@@ -34,7 +37,26 @@
     <script src="manage/dist/js/adminlte.min.js"></script>
 </head>
 
+<%
+    ArticleService service=new ArticleServiceImpl();
+    User user=(User) session.getAttribute("user");
+    if(user!=null) {
+        List<Article> favolist = service.getfav(user.getEmail());
+        if(favolist!=null) {
+            pageContext.setAttribute("fav", favolist);
+        }
+    }
+%>
 
+<%
+    List<Kind> kinds=null;
+    KindService kindService=new KindServiceImpl();
+    kinds=kindService.getKindList();
+    if(kinds!=null) {
+        kinds = kindService.getKindList();
+        pageContext.setAttribute("kinds", kinds);
+    }
+%>
 <body class="background">
 <!--加载jquery-->
 <script type="text/javascript" src="lib/jquery-3.6.0.js"></script>
@@ -58,18 +80,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="articlepage.jsp">首页</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">个人简介</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">学习天地</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">好玩的事</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">懒得分类</a>
-                </li>
+                <c:forEach items="${kinds}" var="a">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/getKindArticleServlet?id=${a.id}">${a.kind_name}</a>
+                    </li>
+                </c:forEach>
                 <li class="nav-item" id="blank"></li>
                 <li class="btn-group btn-group-sm" id="logandreg"<c:if test="${sessionScope.user!=null}">hidden</c:if>>
                     <button type="button" class="btn btn-primary" id="login">登录</button>

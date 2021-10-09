@@ -5,6 +5,10 @@
 <%@ page import="cn.itcast.blog.service.impl.CommentServiceImpl" %>
 <%@ page import="cn.itcast.blog.domain.Comment" %>
 <%@ page import="java.util.List" %>
+<%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -17,6 +21,26 @@
     List<Comment> commentList = commetService.loadArticleComment(id);
     pageContext.setAttribute("comments", commentList);
     pageContext.setAttribute("id", id);
+%>
+
+<%
+    User user=(User) session.getAttribute("user");
+    if(user!=null) {
+        List<Article> favolist = service.getfav(user.getEmail());
+        if(favolist!=null) {
+            pageContext.setAttribute("fav", favolist);
+        }
+    }
+%>
+
+<%
+    List<Kind> kinds=null;
+    KindService kindService=new KindServiceImpl();
+    kinds=kindService.getKindList();
+    if(kinds!=null) {
+        kinds = kindService.getKindList();
+        pageContext.setAttribute("kinds", kinds);
+    }
 %>
 <html>
 <head>
@@ -140,6 +164,39 @@
                             <a class="nav-link" href="#">链接</a>
                         </li>
                     </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>文章搜索</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-inline" action="/serachServlet" method="post">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="搜索"
+                                       name="name" aria-label="Search" style="width: 170px">
+                                <button class="btn btn-navbar" type="submit" style="height: 31px;width: 31px" >
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--这里就做一个博客收藏的表示-->
+                <div class="card">
+                    <div class="card-header"><h3>收藏的博客</h3></div>
+                    <div class="card-body">
+                        <ul class="nav nav-pills flex-column">
+                            <c:if test="${sessionScope.user==null}">现在使用的是游客模式！</c:if>
+                            <c:if test="${sessionScope.user!=null}">
+                                <c:forEach items="${fav}" var="a">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="articlepage.jsp?articleid=${a.id}">${a.title}</a>
+                                    </li>
+                                </c:forEach>
+                            </c:if>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div id="comment_area">

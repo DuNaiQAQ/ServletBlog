@@ -13,7 +13,7 @@ public class TempRowMapper implements RowMapper {
         GoodAndFavo goodAndFavo=new GoodAndFavo();
         goodAndFavo.setId(resultSet.getInt("id"));
         goodAndFavo.setUser_email(resultSet.getString("user_email"));
-        goodAndFavo.setUser_email(resultSet.getString("post_id"));
+        goodAndFavo.setPost_id(resultSet.getInt("post_id"));
         return goodAndFavo;
     }
 }

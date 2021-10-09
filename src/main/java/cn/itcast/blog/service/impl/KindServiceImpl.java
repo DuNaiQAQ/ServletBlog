@@ -34,4 +34,9 @@ public class KindServiceImpl implements KindService {
     public void getConnectionWithArticle(int a_id, int p_id) {
         kindDao.getConnectionWithArticle(a_id,p_id);
     }
+
+    @Override
+    public List<Kind> getKindList() {
+        return kindDao.getKindList();
+    }
 }

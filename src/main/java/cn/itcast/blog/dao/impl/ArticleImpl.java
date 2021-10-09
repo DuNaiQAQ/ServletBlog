@@ -42,9 +42,9 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public void saveArticle(Article article) {
-        String sql="insert into article(author_email,title,text,status,create_time,last_change_time,count_good,count_shou) values(?,?,?,?,?,?,?,?)";
+        String sql="insert into article(author_email,title,text,status,create_time,last_change_time,count_good,count_shou,kind_id) values(?,?,?,?,?,?,?,?,?)";
         template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
-        article.getCount_good(),article.getCount_shou());
+        article.getCount_good(),article.getCount_shou(),article.getKind_id());
     }
 
     @Override
@@ -74,9 +74,9 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public void updateInfo(Article article) {
-        String sql="update article set author_email=?,title=?,text=?,status=?,create_time=?,last_change_time=?,count_good=?,count_shou=? where id = ?";
+        String sql="update article set author_email=?,title=?,text=?,status=?,create_time=?,last_change_time=?,count_good=?,count_shou=?,kind_id=? where id = ?";
         template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
-                article.getCount_good(),article.getCount_shou(),article.getId());
+                article.getCount_good(),article.getCount_shou(),article.getId(),article.getKind_id());
     }
 
     @Override
@@ -132,7 +132,7 @@ public class ArticleImpl implements ArticleDao {
         List<Article> favo=new ArrayList<Article>();
         for(int i=0;i<temp.size();i++){
             String sql2="select * from article where id = ?";
-            Article article=(Article) template.queryForObject(sql,new ArticleRowMapper(),temp.get(i).getPost_id());
+            Article article=(Article) template.queryForObject(sql2,new ArticleRowMapper(),temp.get(i).getPost_id());
             favo.add(article);
         }
         return favo;

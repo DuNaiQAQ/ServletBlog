@@ -5,7 +5,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.util.Comparator" %>
-<%@ page import="cn.itcast.blog.domain.User" %><%--
+<%@ page import="cn.itcast.blog.domain.User" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: DuNai
   Date: 2021/9/10
@@ -66,7 +69,19 @@
     User user=(User) session.getAttribute("user");
     if(user!=null) {
         List<Article> favolist = service.getfav(user.getEmail());
-        pageContext.setAttribute("fav", favolist);
+        if(favolist!=null) {
+            pageContext.setAttribute("fav", favolist);
+        }
+    }
+%>
+
+<%
+    List<Kind> kinds=null;
+    KindService kindService=new KindServiceImpl();
+    kinds=kindService.getKindList();
+    if(kinds!=null) {
+        kinds = kindService.getKindList();
+        pageContext.setAttribute("kinds", kinds);
     }
 %>
 <!DOCTYPE html>
@@ -111,35 +126,29 @@
                 <li class="nav-item">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">首页</a>
+                    <a class="nav-link" href="index.jsp?pagenum=1">首页</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">个人简介</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">学习天地</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">好玩的事</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">懒得分类</a>
-                </li>
-                <li class="nav-item" id="blank"></li>
-                <li class="btn-group btn-group-sm" id="logandreg"<c:if test="${sessionScope.user!=null}">hidden</c:if>>
-                    <button type="button" class="btn btn-primary" id="login">登录</button>
-                    <button type="button" class="btn btn-primary" id="regidit">注册</button>
-                </li>
-
-                <li class="btn-group btn-group-sm" id="selfinfo">
-                    <button type="button" class="btn btn-primary" id="myprofile"><c:if test="${sessionScope.user==null}">
-                        现在使用的是游客模式！
-                    </c:if><c:if test="${sessionScope.user!=null}">
-                        ${sessionScope.user.getUsername()}
-                    </c:if></button>
-                    <button type="button" class="btn btn-primary" id="logout" <c:if test="${sessionScope.user==null}">hidden</c:if>>退出</button>
-                </li>
+                <c:forEach items="${kinds}" var="a">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/getKindArticleServlet?id=${a.id}">${a.kind_name}</a>
+                    </li>
+                </c:forEach>
             </ul>
+            <div class="btn-group right" style="float:right;">
+            <div class="btn-group btn-group-sm" id="logandreg" style="float:right;" <c:if test="${sessionScope.user!=null}">hidden</c:if>>
+                <button type="button" class="btn btn-primary" id="login">登录</button>
+                <button type="button" class="btn btn-primary" id="regidit">注册</button>
+            </div>
+
+            <div class="btn-group btn-group-sm" id="selfinfo" style="float:right">
+                <button type="button" class="btn btn-primary" id="myprofile"><c:if test="${sessionScope.user==null}">
+                    现在使用的是游客模式！
+                </c:if><c:if test="${sessionScope.user!=null}">
+                    ${sessionScope.user.getUsername()}
+                </c:if></button>
+                <button type="button" class="btn btn-primary" id="logout" <c:if test="${sessionScope.user==null}">hidden</c:if>>退出</button>
+            </div>
+            </div>
         </nav>
     </div>
 
@@ -249,11 +258,11 @@
                     <h3>文章搜索</h3>
                     </div>
                     <div class="card-body">
-                    <form class="form-inline" action="/serachServlet" method="post">
+                    <form class="form-inline" id="serachform">
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" type="search" placeholder="搜索"
                                    name="name" aria-label="Search" style="width: 170px">
-                                <button class="btn btn-navbar" type="submit" style="height: 31px;width: 31px" >
+                                <button class="btn btn-navbar" type="button" style="height: 31px;width: 31px" id="s" >
                                     <i class="fas fa-search"></i>
                                 </button>
                         </div>
@@ -302,6 +311,11 @@
         window.location.href="exitServlet"
     })
 
+    $("#s").click(function () {
+        $.post("/serachServlet",$("#serachform").serialize(),function (data) {
+            
+        })
+    })
     $("#myprofile").click(function () {
             if(${sessionScope.user != null}) {
                 if(${sessionScope.user.getRole()==1}) {

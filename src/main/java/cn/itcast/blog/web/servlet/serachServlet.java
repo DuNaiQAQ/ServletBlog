@@ -20,7 +20,8 @@ public class serachServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name=(String) request.getSession().getAttribute("name");
+        request.setCharacterEncoding("UTF-8");
+        String name=request.getParameter("name");
         ArticleService service=new ArticleServiceImpl();
         List<Article> get=service.getAllPostArticles();
         List<Article> result=new ArrayList<>();

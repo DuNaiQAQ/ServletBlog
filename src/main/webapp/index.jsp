@@ -84,6 +84,26 @@
         pageContext.setAttribute("kinds", kinds);
     }
 %>
+
+<%
+    Collections.sort(articles, new Comparator<Article>() {
+        @Override
+        public int compare(Article o1, Article o2) {
+            return o2.getCount_good()-o1.getCount_good();
+        }
+    });
+
+    if(articles.size()>=3){
+        pageContext.setAttribute("hot1",articles.get(0));
+        pageContext.setAttribute("hot2",articles.get(1));
+        pageContext.setAttribute("hot3",articles.get(2));
+    }else if(articles.size()==2){
+        pageContext.setAttribute("hot1",articles.get(0));
+        pageContext.setAttribute("hot2",articles.get(1));
+    }else if(articles.size()==1){
+        pageContext.setAttribute("hot1",articles.get(0));
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,15 +187,15 @@
         <h1>文章推荐</h1>
         <div class="carousel-item active">
             <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot1['id']}" style="text-align: center;display: block">${hot1['title']}</a>
+            <a href="articlepage.jsp?articleid=${hot1['id']}" style="text-align: center;display: block"><h5>${hot1['title']}</h5></a>
         </div>
         <div class="carousel-item">
             <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot2['id']}" style="text-align: center;display: block">${hot2['title']}</a>
+            <a href="articlepage.jsp?articleid=${hot2['id']}" style="text-align: center;display: block"><h5>${hot2['title']}</h5></a>
         </div>
         <div class="carousel-item">
             <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
-            <a href="articlepage.jsp?articleid=${hot3['id']}" style="text-align: center;display: block">${hot3['title']}</a>
+            <a href="articlepage.jsp?articleid=${hot3['id']}" style="text-align: center;display: block"><h5>${hot3['title']}</h5></a>
         </div>
     </div>
 
@@ -205,9 +225,6 @@
                         <div class="fakeimg">
                             <img src="img/illust_80073481_20200325_082657.jpg" style="height: 200px; width: 700px">
                         </div>
-                            <div>
-                                <textarea maxlength="50" disabled style="resize: none;width: 700px">${a.text}</textarea>
-                            </div>
                         </div>
                         <div class="card-footer">
                             <i class="bi-calendar"></i><a style="color: black">${a.getCreat_time()}</a>
@@ -313,16 +330,12 @@
 
     $("#s").click(function () {
         $.post("/serachServlet",$("#serachform").serialize(),function (data) {
-            
+            window.location.href="findresult.jsp";
         })
     })
     $("#myprofile").click(function () {
             if(${sessionScope.user != null}) {
-                if(${sessionScope.user.getRole()==1}) {
                     window.location.href = "manage/userinfo.jsp";
-                }else{
-                    window.location.href="users/userinfo.jsp";
-                }
             }else {
                 alert("您还没有登录！先请登录！");
             }

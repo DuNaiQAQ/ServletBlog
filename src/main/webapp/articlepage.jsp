@@ -394,6 +394,12 @@
             alert("您还没有登录！先请登录！");
         }
     })
+
+    $("#s").click(function () {
+        $.post("/serachServlet",$("#serachform").serialize(),function (data) {
+            window.location.href="findresult.jsp";
+        })
+    })
 </script>
 </body>
 </html>

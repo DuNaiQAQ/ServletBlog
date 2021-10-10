@@ -1,17 +1,16 @@
 package cn.itcast.blog.web.servlet;
 
 import cn.itcast.blog.domain.Article;
+import cn.itcast.blog.domain.ResultInfo;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.service.ArticleService;
 import cn.itcast.blog.service.impl.ArticleServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
@@ -37,10 +36,13 @@ public class updatearticleServlet extends HttpServlet {
         }catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        ResultInfo info=new ResultInfo();
+        info.setFlag(true);
         article.setLast_change_time(new Timestamp(System.currentTimeMillis()));
         ArticleService service=new ArticleServiceImpl();
-        service.saveArticle(article);
+        service.updateInfo(article);
         ObjectMapper mapper=new ObjectMapper();
         response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),info);
     }
 }

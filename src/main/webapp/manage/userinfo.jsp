@@ -1,6 +1,14 @@
 <%@ page import="cn.itcast.blog.domain.User" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="cn.itcast.blog.service.ArticleService" %>
+<%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Article" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cn.itcast.blog.service.CommetService" %>
+<%@ page import="cn.itcast.blog.service.impl.CommentServiceImpl" %>
+<%@ page import="cn.itcast.blog.domain.Comment" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: DuNai
   Date: 2021/9/10
@@ -260,11 +268,28 @@
                                 <p class="text-muted text-center">DuNaiBlog博客使用者</p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
+                                    <%
+                                        ArticleService service=new ArticleServiceImpl();
+                                        User user=(User) request.getSession().getAttribute("user");
+                                        List<Article> posted=service.getPostArticles(user.getEmail());
+                                        pageContext.setAttribute("posted",posted.size());
+                                        List<Article> ar=new ArrayList<>();
+                                        int flag;
+                                        if((posted.size()-5)<0)flag=0;
+                                        else flag=posted.size()-5;
+                                        for(int i=posted.size()-1;i>=flag;i--){
+                                            ar.add(posted.get(i));
+                                        }
+                                        pageContext.setAttribute("ar",ar);
+                                        CommetService service1=new CommentServiceImpl();
+                                        List<Comment> comments=service1.loadComment(user.getEmail());
+                                        pageContext.setAttribute("cs",comments.size());
+                                    %>
                                     <li class="list-group-item">
-                                        <b>发布文章数</b> <a class="float-right">0</a>
+                                        <b>发布文章数</b> <a class="float-right">${posted}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>发布评论数</b> <a class="float-right">0</a>
+                                        <b>发布评论数</b> <a class="float-right">${cs}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -287,7 +312,7 @@
                                 <strong><i class="far fa-file-alt mr-1"></i> 我的生日</strong>
                                 <p class="text-muted">
                                     <%
-                                    User user=(User) session.getAttribute("user");
+                                    user=(User) session.getAttribute("user");
                                     Date date=user.getBirth();
                                         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
                                         String birth=format.format(date);
@@ -316,22 +341,20 @@
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
+                                        <c:forEach items="${ar}" var="a">
                                         <!-- Post -->
                                         <div class="post">
                                             <div class="user-block">
-                                                <img class="img-circle img-bordered-sm" src="./dist/img/user1-128x128.jpg" alt="用户头像">
                                                 <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                          <a href="#">${user.email}</a>
                         </span>
-                                                <span class="description">公开分享 - 今天下午7:30</span>
+                                                <span class="description">${a.creat_time}</span>
                                             </div>
                                             <!-- /.user-block -->
-                                            <p>
-                                                这里会显示已经发布的5个博客，还在制作中
-                                            </p>
+                                            <a href="../articlepage.jsp?articleid=${a.id}"><h3>${a.title}</h3></a>
                                         </div>
                                         <!-- /.post -->
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <!-- /.tab-content -->

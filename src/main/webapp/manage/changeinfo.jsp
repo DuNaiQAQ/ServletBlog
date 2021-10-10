@@ -244,7 +244,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="info" method="post" action="/updateInfoServlet" enctype="multipart/form-data">
+                        <form id="info" enctype="multipart/form-data">
                             <div class="card-body">
                                 <input type="hidden" name="id" value="${sessionScope.user.getId()}">
                                 <div class="form-group">
@@ -280,7 +280,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button class="btn btn-primary" id="save">提交</button>
+                                <button class="btn btn-primary" id="save" type="button">提交</button>
                             </div>
                         </form>
                     </div>
@@ -308,6 +308,21 @@
 <script>
     $("#resetpass").click(function () {
         window.location.href="../changePassword.jsp";
+    })
+
+    $("#save").click(function () {
+        $.ajax({
+            url:'/updateInfoServlet' ,
+            type: 'POST' ,
+            cache: false ,
+            data: new FormData($("#info")[0]),
+            processData : false,
+            contentType : false,
+            success:function (data) {
+                alert("数据更新成功")
+                window.location.href="userinfo.jsp";
+            }
+        })
     })
 </script>
 </body>

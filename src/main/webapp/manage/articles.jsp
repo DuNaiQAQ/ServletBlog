@@ -305,19 +305,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>DuNai</td>
-                                    <td>论()为什么是神</td>
-                                    <td>2021-5-24 10:30:20</td>
-                                    <td>2021-10-10 10:30:22</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary lookat">浏览</button>
-                                        <button type="button" class="btn btn-primary delete">删除</button>
-                                    </td>
-                                </tr>
                                 <c:forEach var="a" items="${sessionScope.posta}">
                                     <tr>
                                         <td class="articleid">${a.getId()}</td>
@@ -387,8 +374,11 @@
     })
 
     $(".delete").click(function(){
-        var id=$(this).parents("tr").find(".articleid").text()
-        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
+        var a=confirm("确定要移入垃圾箱吗？");
+        if(a) {
+            var id = $(this).parents("tr").find(".articleid").text()
+            window.location.href = "/changestatusServlet?articleid=" + id + "&setstatus=3&pageid=1";
+        }
     })
 
     $(".mdkeit").click(function(){

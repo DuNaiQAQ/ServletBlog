@@ -132,7 +132,12 @@ public class ArticleImpl implements ArticleDao {
         List<Article> favo=new ArrayList<Article>();
         for(int i=0;i<temp.size();i++){
             String sql2="select * from article where id = ?";
-            Article article=(Article) template.queryForObject(sql2,new ArticleRowMapper(),temp.get(i).getPost_id());
+            Article article=null;
+            try {
+                article = (Article) template.queryForObject(sql2, new ArticleRowMapper(), temp.get(i).getPost_id());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             favo.add(article);
         }
         return favo;

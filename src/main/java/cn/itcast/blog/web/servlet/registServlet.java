@@ -54,6 +54,7 @@ public class registServlet extends HttpServlet {
             e.printStackTrace();
         }
         UserService service = new UserServiceImpl();
+        user.setRole(2);
         boolean flag = service.regist(user);
         if(flag){
             info.setFlag(true);

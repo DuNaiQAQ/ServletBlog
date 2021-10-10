@@ -1,12 +1,23 @@
 <%@ page import="cn.itcast.blog.service.ArticleService" %>
 <%@ page import="cn.itcast.blog.service.impl.ArticleServiceImpl" %>
 <%@ page import="cn.itcast.blog.domain.Article" %>
+<%@ page import="cn.itcast.blog.service.KindService" %>
+<%@ page import="cn.itcast.blog.domain.Kind" %>
+<%@ page import="cn.itcast.blog.service.impl.KindServiceImpl" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 这是一个入门模板页面。通过此页面从头开发新的项目。
 该页面删除了所有链接，仅提供所需的标签。
 -->
+<%
+    KindService service=new KindServiceImpl();
+    List<Kind> kinds=service.getKindList();
+    if(kinds!=null) {
+        pageContext.setAttribute("kinds", kinds);
+    }
+%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -240,8 +251,8 @@
 <%
 //调用service来加载文章内容
     int articleid=Integer.valueOf(request.getParameter("articleid"));
-    ArticleService service=new ArticleServiceImpl();
-    Article article=service.findarticleById(articleid);
+    ArticleService aservice=new ArticleServiceImpl();
+    Article article=aservice.findarticleById(articleid);
     pageContext.setAttribute("article",article);
 %>
         <!-- 主体内容 -->
@@ -257,18 +268,25 @@
                         <!-- /.card-header -->
                         <div class="card-body" style="height: 750px">
                             <form style="height: 550px;" method action="post" id="article_filed">
+                                <div class="form-group">
+                                    <label for="exampleSelectRounded0">文章分类<code></code></label>
+                                    <select class="custom-select rounded-0" id="exampleSelectRounded0" name="kindid">
+                                        <c:forEach var="a" items="${kinds}">
+                                            <option value="${a.id}">${a.kind_name}</option>
+                                        </c:forEach>
+                                    </select>
                                 <label for="title">${article.getTitle()}</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题" value="${article.getTitle()}">
-                                <input type="hidden" name="role" value="${article.getRole()}">
                                 <input type="hidden" name="email" value="${article.getEmail()}">
                                 <input type="hidden" name="id" value="${article.getId()}">
-                                <input type="hidden" name="create_time" value="${article.getCreate_time()}">
+                                <input type="hidden" name="create_time" value="${article.creat_time}">
                                 <input type="hidden" name="count_shou" value="${article.getCount_shou()}">
                                 <input type="hidden" name="count_good" value="${article.getCount_good()}">
                                 <input type="hidden" name="status" value="${article.getStatus()}">
                                 <br>
                                 <div id="editor">
                             <textarea style="display:none;" name="text">${article.getText()}</textarea>
+                                </div>
                                 </div>
                                 <button type="button" class="btn btn-primary" id="save">保存</button>
                             </form>
@@ -305,19 +323,35 @@
 <script type="text/javascript">
     $(function() {
         var editor = editormd("editor", {
-            width  : "100%",
-            height : "100%",
-            path   : "editormd/lib/"
+            width  : "95%",
+            top    : "100px",
+            height :  "500px",
+            syncScrolling : "single",
+            path   : "../lib/editormd/lib/",
+            imageUpload     : true,
+            imageFormats    : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL  : "/uploadImgServlet",
+            saveHTMLToTextarea : true
         });
     });
 </script>
 <script>
-    $("#save").click(function () {
-        alert("文章更新成功成功！");
-        $.post("/uploadarticleServlet",$("#article_filed").serialize(),function (data) {
-
+    $("#postar").click(function () {
+        $.post("/uploadarticleServlet?role=1",$("#article_filed").serialize(),function (data) {
+            alert("您的文章已经发布成功");
+            window.location.href="articles.jsp";
         })
     })
+
+    $("#save").click(function () {
+        $.post("/upldatearticleServlet", $("#article_filed").serialize(), function (data) {
+            alert("您的文章已经保存成功");
+            window.location.href = "drafts.jsp";
+        })
+    })
+    window.onbeforeunload = function (event) {
+        return confirm("您的文章可能没写完，确定要退出吗？");
+    }
 </script>
 <!-- 用于演示 AdminLTE  -->
 <script src="dist/js/demo.js"></script>

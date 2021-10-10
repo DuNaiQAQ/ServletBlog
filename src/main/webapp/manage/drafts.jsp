@@ -278,10 +278,7 @@
                                         aria-label="文章标题: activate to sort column ascending">文章标题
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
-                                        aria-label="发布时间: activate to sort column ascending">发布时间
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
-                                        aria-label="最后修改时间: activate to sort column ascending">最后修改时间
+                                        aria-label="发布时间: activate to sort column ascending">最后修改时间时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="articles" rowspan="1" colspan="1"
                                         aria-label="点赞次数: activate to sort column ascending">点赞次数
@@ -300,7 +297,6 @@
                                         <td class="articleid">${a.getId()}</td>
                                         <td>${a.getEmail()}</td>
                                         <td>${a.getTitle()}</td>
-                                        <td>${a.getCreat_time()}</td>
                                         <td>${a.getLast_change_time()}</td>
                                         <td>${a.getCount_good()}</td>
                                         <td>${a.getCount_shou()}</td>
@@ -359,17 +355,23 @@
 <script>
     $(".lookat").click(function () {
         var id=$(this).parents("tr").find(".articleid").text()
-        window.location.href="../articlepage.jsp?articleid="+id;
+        window.location.href="./changearticle.jsp?articleid="+id;
     })
 
     $(".delete").click(function(){
-        var id=$(this).parents("tr").find(".articleid").text()
-        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=3&pageid=2";
+        var a=confirm("确定要移入垃圾箱吗？");
+        if(a) {
+            var id = $(this).parents("tr").find(".articleid").text()
+            window.location.href = "/changestatusServlet?articleid=" + id + "&setstatus=3&pageid=2";
+        }
     })
 
     $(".postout").click(function(){
-        var id=$(this).parents("tr").find(".articleid").text()
-        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=1&pageid=2";
+        var a=confirm("确定要发布文章吗？");
+        if(a) {
+            var id = $(this).parents("tr").find(".articleid").text()
+            window.location.href = "/changestatusServlet?articleid=" + id + "&setstatus=1&pageid=2";
+        }
     })
 </script>
 </body>

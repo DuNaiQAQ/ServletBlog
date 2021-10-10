@@ -14,11 +14,11 @@ import java.util.List;
 public class UsersFilter implements Filter {
     private List<String> manageUrl=new ArrayList<String>();
     public void init(FilterConfig config) throws ServletException {
-        manageUrl.add("/allarticels.jsp");
-        manageUrl.add("/addusers.jsp");
-        manageUrl.add("/alluers.jsp");
-        manageUrl.add("/manage_changeinfo.jsp");
-        manageUrl.add("/allcomments.jsp");
+        manageUrl.add("/manage/allarticles.jsp");
+        manageUrl.add("/manage/adduers.jsp");
+        manageUrl.add("/manage/alluers.jsp");
+        manageUrl.add("/manage/manage_changeinfo.jsp");
+        manageUrl.add("/manage/allcomments.jsp");
     }
 
     public void destroy() {

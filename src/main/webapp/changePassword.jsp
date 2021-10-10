@@ -25,6 +25,7 @@
     <h2>欢迎回来,先请登录</h2>
     <form action method="post" id="logform">
         <div class="form-group">
+            <input type="hidden" name="email" value="${sessionScope.user.email}">
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
         </div>
@@ -62,13 +63,6 @@
         window.location.href="regpage.html"
     })
 
-    function checkemail() {
-        var mail=$("#userinfo").val();
-        var reg_email=/^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
-        var flag=reg_email.test(mail);
-        return flag;
-    }
-
     function checkPassword() {
         var pass=$("#password").val();
         var reg_pass=/^[a-zA-Z]\w{5,17}$/;
@@ -80,10 +74,7 @@
     $(function () {
         $("#reset").click(function () {
                 var cantrylog=true;
-                if(!checkemail()){
-                    alert("请检查邮箱输入格式是否正确");
-                    cantrylog=false;
-                }else if(!checkPassword()) {
+                if(!checkPassword()) {
                     alert("请检查密码输入格式是否正确");
                     cantrylog = false;
                 }else if($("#password").val()!=$("#passworda").val()){
@@ -94,10 +85,10 @@
                 $.post("/changePassServlet",$("#logform").serialize(),function (data) {
                                 if(data.flag){
                                     alert("密码修改成功，跳转至登录界面");
-                                    window.location.href="loginpage.html";
                                     <%
-                                    request.getSession().invalidate();
-                                    %>
+request.getSession().invalidate();
+%>
+                                    window.location.href="loginpage.html";
                                 }else {
                                     alert(data.errorMsg);
                                 }

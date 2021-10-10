@@ -6,6 +6,7 @@ import cn.itcast.blog.domain.ResultInfo;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.service.UserService;
 import cn.itcast.blog.service.impl.UserServiceImpl;
+import cn.itcast.blog.util.Md5Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.*;
@@ -35,7 +36,11 @@ public class changePassServlet extends HttpServlet {
         UserDao userDao=new UserDaoImpl();
         ResultInfo info=new ResultInfo();
         if(userDao.findByEmail(email)!=null){
-            service.changePass(email,pass);
+            try {
+                service.changePass(email, Md5Util.encodeByMd5(pass));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             info.setFlag(true);
         }else {
             info.setFlag(false);

@@ -266,7 +266,7 @@
                                 <label for="title">标题</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
                                 <div class="form-group">
-                                    <label for="exampleSelectRounded0">扁平化 <code>.rounded-0</code></label>
+                                    <label for="exampleSelectRounded0">文章分类<code></code></label>
                                     <select class="custom-select rounded-0" id="exampleSelectRounded0" name="kindid">
                                         <c:forEach var="a" items="${kinds}">
                                             <option value="${a.id}">${a.kind_name}</option>

@@ -1,12 +1,15 @@
 package cn.itcast.blog.web.servlet;
 
 import cn.itcast.blog.domain.Article;
+import cn.itcast.blog.domain.ResultInfo;
 import cn.itcast.blog.service.ArticleService;
 import cn.itcast.blog.service.impl.ArticleServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,10 @@ public class serachServlet extends HttpServlet {
             }
         }
         request.getSession().setAttribute("findarticles",result);
-        response.sendRedirect(request.getContextPath()+"/findresult.jsp");
+        ResultInfo info=new ResultInfo();
+        info.setFlag(true);
+        ObjectMapper mapper=new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),info);
     }
 }

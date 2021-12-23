@@ -27,16 +27,16 @@ public class registServlet extends HttpServlet {
         HttpSession session=request.getSession();
         String checkcode_server=(String)session.getAttribute("CHECKCODE_SERVER");
         session.removeAttribute("CHECKCODE_SERVER");
-        if(!checkcode_server.equalsIgnoreCase(check)){
-            ResultInfo info=new ResultInfo();
-            info.setFlag(false);
-            info.setErrorMsg("注册失败!验证码错误");
-            ObjectMapper mapper=new ObjectMapper();
-            String json=mapper.writeValueAsString(info);
-            response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(json);
-            return;
-        }
+//        if(!checkcode_server.equalsIgnoreCase(check)){
+//            ResultInfo info=new ResultInfo();
+//            info.setFlag(false);
+//            info.setErrorMsg("注册失败!验证码错误");
+//            ObjectMapper mapper=new ObjectMapper();
+//            String json=mapper.writeValueAsString(info);
+//            response.setContentType("application/json;charset=utf-8");
+//            response.getWriter().write(json);
+//            return;
+//        }
         //来进行一个正常的操作
         Map<String, String[]> map = request.getParameterMap();
         User user = new User();
@@ -67,7 +67,7 @@ public class registServlet extends HttpServlet {
         String json=mapper.writeValueAsString(info);
 
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(json);
+        mapper.writeValue(response.getOutputStream(),json);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

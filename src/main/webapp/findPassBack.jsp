@@ -1,4 +1,4 @@
-<%@ page import="java.util.Random" %>
+ <%@ page import="java.util.Random" %>
 <%@ page import="cn.itcast.blog.util.MailUtils" %>
 <%@ page import="cn.itcast.blog.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

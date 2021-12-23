@@ -18,7 +18,7 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public List<Article> findPostArticle(String email) {
-        String sql="select * from article where author_email = ? and status = 1";
+        String sql="select article.* from article,user_articleqa where author_email = ? and status = 1";
         return template.query(sql,new ArticleRowMapper(),email);
     }
 
@@ -30,21 +30,23 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public List<Article> findDraftArticles(String email) {
-        String sql="select * from article where author_email = ? and status = 2";
+        String sql="select article.* from article,user_article where user_article.author_email = ? and user_article.article_id=article.id and status = 2";
         return template.query(sql,new ArticleRowMapper(),email);
     }
 
     @Override
     public List<Article> findRubbishCan(String email) {
-        String sql="select * from article where author_email = ? and status = 3";
+        String sql="select article.* from article,user_article where user_article.author_email = ? and user_article.article_id=article.id and status = 3";
         return template.query(sql,new ArticleRowMapper(),email);
     }
 
     @Override
     public void saveArticle(Article article) {
-        String sql="insert into article(author_email,title,text,status,create_time,last_change_time,count_good,count_shou,kind_id) values(?,?,?,?,?,?,?,?,?)";
-        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
-        article.getCount_good(),article.getCount_shou(),article.getKind_id());
+        String sql="insert into article(title,author_email,text,status,create_time,last_change_time,count_good,count_shou) values(?,?,?,?,?,?,?)";
+        template.update(sql,article.getTitle(),article.getEmail(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
+        article.getCount_good(),article.getCount_shou());
+        template.update("insert into kind_post(kind_id,article_id) value(?,?)",article.getKind_id(),article.getId());
+        template.update("insert into user_article(author_email,article_id) value(?,?)",article.getEmail(),article.getId());
     }
 
     @Override
@@ -74,9 +76,11 @@ public class ArticleImpl implements ArticleDao {
 
     @Override
     public void updateInfo(Article article) {
-        String sql="update article set author_email=?,title=?,text=?,status=?,create_time=?,last_change_time=?,count_good=?,count_shou=?,kind_id=? where id = ?";
-        template.update(sql,article.getEmail(),article.getTitle(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
-                article.getCount_good(),article.getCount_shou(),article.getId(),article.getKind_id());
+        String sql="update article set title=?,author_email=?,text=?,status=?,create_time=?,last_change_time=?,count_good=?,count_shou=?where id = ?";
+        template.update(sql,article.getTitle(),article.getEmail(),article.getText(),article.getStatus(),article.getCreat_time(),article.getLast_change_time(),
+                article.getCount_good(),article.getCount_shou(),article.getId());
+        template.update("update kind_post set kind_id = ?,article_id = ?",article.getKind_id(),article.getId());
+        template.update("update user_article set author_email = ?,article_id = ?",article.getEmail(),article.getId());
     }
 
     @Override

@@ -93,7 +93,12 @@ public class UserDaoImpl implements UserDao {
     public User findByEmail(String email) {
         User user=null;
         String sql="select * from user where Email = ?";
-        user=template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),email);
+        try {
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), email);
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
         return user;
     }
 

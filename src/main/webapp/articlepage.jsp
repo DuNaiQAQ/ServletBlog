@@ -83,18 +83,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.jsp?pagenum=1">首页</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">个人简介</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">学习天地</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">好玩的事</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="articlepage.jsp">懒得分类</a>
-                </li>
+                <c:forEach items="${kinds}" var="a">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/getKindArticleServlet?id=${a.id}">${a.kind_name}</a>
+                    </li>
+                </c:forEach>
                 <li class="nav-item" id="blank"></li>
                 <li class="btn-group btn-group-sm" id="logandreg"<c:if test="${sessionScope.user!=null}">hidden</c:if>>
                     <button type="button" class="btn btn-primary" id="login">登录</button>

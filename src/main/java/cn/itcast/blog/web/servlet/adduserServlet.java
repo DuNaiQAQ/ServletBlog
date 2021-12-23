@@ -4,6 +4,7 @@ import cn.itcast.blog.domain.ResultInfo;
 import cn.itcast.blog.domain.User;
 import cn.itcast.blog.service.UserService;
 import cn.itcast.blog.service.impl.UserServiceImpl;
+import cn.itcast.blog.util.Md5Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -33,6 +34,12 @@ public class adduserServlet extends HttpServlet {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        }
+        try {
+            user.setPassword(Md5Util.encodeByMd5(user.getPassword()));
+        } catch (Exception e) {
+
+
         }
         user.setStatus("Y");
         info.setFlag(true);

@@ -45,10 +45,7 @@ public class KindDaoImpl implements KindDao {
 
     @Override
     public List<Article> getKindArticles(int id) {
-        ArticleService service=new ArticleServiceImpl();
-        List<Kindpost> temp=null;
-        List<Article> kindArticles=new ArrayList<>();
-        String sql="select * from article where kind_id = ?";
+        String sql="select article.* from article,kind_post where kind_post.kind_id = ? and kind_post.article_id=article.id";
         return template.query(sql,new ArticleRowMapper(),id);
     }
 
@@ -75,7 +72,7 @@ public class KindDaoImpl implements KindDao {
      * */
     @Override
     public void getConnectionWithArticle(int a_id, int p_id) {
-        String sql="insert into kindpost(article_id,kind_id) values(?,?)";
+        String sql="insert into kind_post(article_id,kind_id) values(?,?)";
         template.update(sql,a_id,p_id);
     }
 

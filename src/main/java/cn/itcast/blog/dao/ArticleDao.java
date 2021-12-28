@@ -4,6 +4,11 @@ import cn.itcast.blog.domain.Article;
 
 import java.util.List;
 
+/**
+ * 文章控制Dao层
+ * @author 2020401308 李翊君
+ * @version 1.0
+ * */
 public interface ArticleDao {
     public List<Article> findPostArticle(String email);
     public List<Article> findAllArticles();

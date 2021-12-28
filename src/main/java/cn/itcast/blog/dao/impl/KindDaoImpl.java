@@ -16,9 +16,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <p>分类Dao实现类</p>
+ * @author 2020401308 李翊君
+ * @version 1.0
+ * @see cn.itcast.blog.dao.KindDao
+ * */
 public class KindDaoImpl implements KindDao {
     JdbcTemplate template=new JdbcTemplate(JDBCUtils.getDataSource());
 
+    /**
+     * <p>设置分类</p>
+     * @param kind 分类信息
+     * */
     @Override
     public boolean setKind(Kind kind) {
         String sqlbefor="select * from kinds where kind_name = ?";
@@ -51,20 +61,14 @@ public class KindDaoImpl implements KindDao {
 
     @Override
     public boolean deletekind(int id) {
-        String sqlbefor="select * from kinds where id = ?";
-        Kind kind=null;
-        try {
-            kind = (Kind) template.queryForObject(sqlbefor, new KindGetRowMapper(), kind.getKind_name());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        if(kind==null){
-            return false;
-        }else {
+        try{
             String sql = "delete from kinds where id = ?";
             template.update(sql,id);
-            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     /**

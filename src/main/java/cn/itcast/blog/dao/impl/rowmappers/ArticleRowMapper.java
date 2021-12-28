@@ -19,7 +19,6 @@ public class ArticleRowMapper implements RowMapper {
         article.setLast_change_time(resultSet.getTimestamp("last_change_time"));
         article.setCount_good(resultSet.getInt("count_good"));
         article.setCount_shou(resultSet.getInt("count_shou"));
-        article.setKind_id(resultSet.getInt("kind_id"));
         return article;
     }
 }

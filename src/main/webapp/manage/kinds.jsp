@@ -288,6 +288,7 @@
                                         <td>${a.kind_name}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary lookat">浏览</button>
+                                            <button type="button" class="btn btn-primary delete">删除分类</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -311,7 +312,7 @@
                                     <!-- /.card-body -->
 
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" id="addkdd">添加</button>
+                                        <button type="button" class="btn btn-primary" id="addkdd">添加</button>
                                     </div>
                                 </form>
                             </div>
@@ -373,7 +374,17 @@
 
     $(".delete").click(function(){
         var id=$(this).parents("tr").find(".id").text()
-        window.location.href="/changestatusServlet?articleid="+id+"&setstatus=3&pageid=1";
+        $.get("/delKindServlet?kindid="+id,function (data) {
+            if(data.flag){
+                alert("删除分类成功!");
+                window.location.href="kinds.jsp";
+            }
+        })
+    })
+
+    $(".lookat").click(function(){
+        var id=$(this).parents("tr").find(".id").text();
+        window.location.href="../kindresult.jsp?id"
     })
 </script>
 </body>

@@ -97,7 +97,6 @@ public class UserDaoImpl implements UserDao {
             user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), email);
         }catch (Exception e){
             e.printStackTrace();
-
         }
         return user;
     }

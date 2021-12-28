@@ -40,28 +40,27 @@
         for (int i = articles.size() - 1 - (pagenum - 1) * 3; i >= flag; i--) {
             pageArticles.add(articles.get(i));
         }
-    }else {
 
-    }
-    if(pagenum==0){
-        response.sendRedirect("index.jsp?pagenum=1");
-    }else {
-        String pre,next;
-        if((pagenum-1)==0) {
-            pre = "index.jsp?pagenum=" + pagenum;
-        }else{
-            pre = "index.jsp?pagenum=" + (pagenum - 1);
+        if (pagenum == 0) {
+            response.sendRedirect("index.jsp?pagenum=1");
+        } else {
+            String pre, next;
+            if ((pagenum - 1) == 0) {
+                pre = "index.jsp?pagenum=" + pagenum;
+            } else {
+                pre = "index.jsp?pagenum=" + (pagenum - 1);
+            }
+            if ((pagenum + 1) > pagesize) {
+                next = "index.jsp?pagenum=" + pagenum;
+            } else {
+                next = "index.jsp?pagenum=" + (pagenum + 1);
+            }
+            pageContext.setAttribute("pre", pre);
+            pageContext.setAttribute("next", next);
+            pageContext.setAttribute("size", pagesize);
+            pageContext.setAttribute("num", pagenum);
+            pageContext.setAttribute("articles", pageArticles);
         }
-        if((pagenum+1)>pagesize) {
-            next = "index.jsp?pagenum=" + pagenum;
-        }else {
-            next = "index.jsp?pagenum=" + (pagenum + 1);
-        }
-        pageContext.setAttribute("pre",pre);
-        pageContext.setAttribute("next",next);
-        pageContext.setAttribute("size",pagesize);
-        pageContext.setAttribute("num",pagenum);
-        pageContext.setAttribute("articles",pageArticles);
     }
 %>
 

@@ -1,6 +1,6 @@
 package cn.itcast.blog.domain;
 
-public class GoodAndFavo {
+public class    GoodAndFavo {
     private int id;
     private String user_email;
     private int post_id;
